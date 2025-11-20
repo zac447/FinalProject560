@@ -8,10 +8,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{4CFDA744-1DC4-4F0D-9D54-18DFBD451565}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		Tables.sql = Tables.sql
-		TextFile1.txt = TextFile1.txt
-	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D0D4D2C0-1BEE-4035-AFFF-BB7699DB71FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", "{82C574BE-BD3B-4ED1-B608-ABB70E2C4EA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schemas", "Schemas", "{14493D7C-22BA-4610-9CC8-AF2AF776F99A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0D4D2C0-1BEE-4035-AFFF-BB7699DB71FD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{82C574BE-BD3B-4ED1-B608-ABB70E2C4EA3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{14493D7C-22BA-4610-9CC8-AF2AF776F99A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24FAC5FC-FA13-43BA-A08C-4BA5F6A0E116}
