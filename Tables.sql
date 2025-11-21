@@ -24,9 +24,10 @@ BEGIN
 		Title NVARCHAR(30) NOT NULL,
 		DateOfHire DATE NOT NULL,
 		[Status] NVARCHAR(10) NOT NULL,
-		HourlyRate INT NOT NULL,
+		HourlyRate DECIMAL(10,2) NOT NULL, --
 
-		CONSTRAINT UK_HR_Employee_Last_And_First_Name UNIQUE(LastName, FirstName)
+		CONSTRAINT UK_HR_Employee_Last_And_First_Name UNIQUE(LastName, FirstName),
+		CONSTRAINT FK_HR_Employee_ManagerID FOREIGN KEY (ManagerID) REFERENCES HR.Employee(EmployeeID) -- 
 	);
 END;
 
@@ -34,11 +35,11 @@ IF OBJECT_ID(N'Sales.Customer') IS NULL
 BEGIN
 	CREATE TABLE Sales.Customer
 	(
-		CustID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+		CustomerID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		Email NVARCHAR(30) NOT NULL,
 		LastName NVARCHAR(30) NOT NULL,
 		FirstName NVARCHAR(30) NOT NULL,
-		Phone NVARCHAR(10) NOT NULL,
+		Phone NVARCHAR(15) NOT NULL,
 		[Address] NVARCHAR(60) NOT NULL,
 		City NVARCHAR(20) NOT NULL,
 		[State] NVARCHAR(20) NOT NULL,
@@ -53,22 +54,22 @@ BEGIN
 	);
 END;
 
-IF OBJECT_ID(N'Sales.ProjectPropsal') IS NULL
+IF OBJECT_ID(N'Sales.ProjectProposal') IS NULL
 BEGIN
 	CREATE TABLE Sales.ProjectProposal
 	(
 		ProjectProposalID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		ProjectName NVARCHAR(80) NOT NULL,
 		ProjectDetails NVARCHAR(500) NOT NULL,
-		CustID INT NOT NULL,
+		CustomerID INT NOT NULL,
 		EstimatedDurationHours INT NOT NULL,
 		[Status] NVARCHAR(10) NOT NULL,
 		--add employeeID need to talk about
 
-		CONSTRAINT FK1_Sales_ProjectProposal_CustID FOREIGN KEY(CustID)
-			REFERENCES Sales.Customer(CustID), 
+		CONSTRAINT FK1_Sales_ProjectProposal_CustID FOREIGN KEY(CustomerID)
+			REFERENCES Sales.Customer(CustomerID), 
 
-		CONSTRAINT UK_Sales_ProjectPropsal_Project_Name UNIQUE (ProjectName)
+		CONSTRAINT UK_Sales_ProjectProposal_Project_Name UNIQUE (ProjectName)
 	);
 END;
 
@@ -88,7 +89,7 @@ BEGIN
 			REFERENCES Sales.Customer(CustomerID),
 
 		CONSTRAINT FK2_Production_Project_ManagerID FOREIGN KEY(ManagerID)
-			REFERENCES HR.Employee(ManagerID),
+			REFERENCES HR.Employee(EmployeeID),
 
 		CONSTRAINT UK_Production_Project_Project_Name UNIQUE(ProjectName)
 	);
@@ -98,26 +99,26 @@ IF OBJECT_ID(N'Production.ProjectRateType') IS NULL
 BEGIN
 	CREATE TABLE Production.ProjectRateType
 	(
-	`	RateID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+		RateID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		ProjectID INT NOT NULL,
-		HourlyRate INT NOT NULL,
+		HourlyRate DECIMAL(10,2) NOT NULL,
 		StartDate DATE NOT NULL,
 		ENDDate Date NULL,
 
-		CONSTRAINT FK_Produciton_ProjectRateType_ProjectID FOREIGN KEY(ProjectID)
+		CONSTRAINT FK_Production_ProjectRateType_ProjectID FOREIGN KEY(ProjectID)
 			REFERENCES Production.Project(ProjectID)
 	);
 END;
 
 IF OBJECT_ID(N'Production.ProjectMaterials') IS NULL
 BEGIN
-	CREATE TABLE Produciton.ProjectMaterials
+	CREATE TABLE Production.ProjectMaterials
 	(
 		MaterialID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		ProjectID INT NOT NULL,
 		[Description] NVARCHAR(40) NOT NULL,
-		Quanity INT NOT NULL,
-		Total INT NOT NULL,
+		Quantity INT NOT NULL,
+		Total DECIMAL(10,2) NOT NULL,
 
 		CONSTRAINT FK_Production_ProjectMaterials_ProjectID FOREIGN KEY(ProjectID)
 			REFERENCES Production.Project(ProjectID)
@@ -130,12 +131,15 @@ BEGIN
 	(
 		ProjectHoursID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		ProjectID INT NOT NULL,
-		ManagerID INT NOT NULL,
+		EmployeeID INT NOT NULL,
 		[Description] NVARCHAR(80) NOT NULL,
 		WorkPerformedDate DATE NOT NULL,
 		[Hours] INT NOT NULL,
 
 		CONSTRAINT FK_Production_ProjectHours_ProjectID FOREIGN KEY(ProjectID)
-			REFERENCES Production.Project(ProjectID)
+			REFERENCES Production.Project(ProjectID),
+
+		CONSTRAINT FK_Production_ProjectHours_EmployeeID FOREIGN KEY (EmployeeID)
+        REFERENCES HR.Employee(EmployeeID)
 	);
 END;
