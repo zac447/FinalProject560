@@ -5,10 +5,12 @@ VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{4CFDA744-1DC4-4F0D-9D54-18DFBD451565}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFolder", "TestFolder", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
-		Tables.sql = Tables.sql
-		TestText.txt = TestText.txt
+		CreateDatabase.sql = CreateDatabase.sql
+		CreateTables.sql = CreateTables.sql
+		InsertSampleData.sql = InsertSampleData.sql
+		StoredProcedures.sql = StoredProcedures.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface2", "UserInterface2\UserInterface2.csproj", "{09F2E8C8-08A5-4686-B672-E0854939F9F1}"
