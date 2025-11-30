@@ -200,3 +200,168 @@ GO
 EXEC Search_Employee
 	@LastName = 'Wynn';
 
+--Project Proposal Procedures
+
+--Add new project proposal. 
+--Demonstrates: INSERT into a table with FK to Sales.Customer.
+CREATE PROCEDURE Add_Proposal
+	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
+	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
+AS 
+BEGIN
+	INSERT INTO Sales.Customer 
+	(Email, LastName, FirstName, Phone, [Address], City, [State], ZipCode, [Status])
+
+VALUES (@Email, @LastName, @FirstName, @Phone, @Address, @City, @State, @ZipCode, @Status)
+END;	
+GO;
+
+EXEC Add_Proposal
+    @Email = 'testproc@gmail.com',
+    @LastName = 'Smith',
+    @FirstName = 'John',
+    @Phone = '5551234567',
+    @Address = '123 Main St',
+    @City = 'Kansas City',
+    @State = 'MO',
+    @ZipCode = '64101',
+    @Status = 'Active';
+
+SELECT * FROM Sales.Customer
+
+--Update customer contact info
+--Demonstrates: UPDATE, use of primary key.
+CREATE PROCEDURE Update_Customer 
+	@CustomerID INT, @Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
+	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
+AS 
+BEGIN
+	UPDATE Sales.Customer 
+	SET Email = @Email, LastName = @LastName, FirstName = @FirstName, Phone = @Phone, [Address] = @Address, 
+		City = @City, [State] = @State, ZipCode = @ZipCode, [Status] = @Status
+	WHERE CustomerID = @CustomerID AND 
+	( Email    <> @Email
+     OR LastName <> @LastName
+     OR FirstName <> @FirstName
+     OR Phone    <> @Phone
+     OR [Address]<> @Address
+     OR City     <> @City
+     OR [State]  <> @State
+     OR ZipCode  <> @ZipCode
+     OR [Status] <> @Status
+     );
+
+END;	
+GO
+
+EXEC Update_Customer
+	@CustomerID = 101,
+	@Email = 'Brian.Ortega@gmail.com',
+    @LastName = 'Ortega',
+    @FirstName = 'Brian',
+    @Phone = '5551234567',
+    @Address = '123 Main St',
+    @City = 'Top City City',
+    @State = 'MO',
+    @ZipCode = '66614',
+    @Status = 'Active';
+
+--Soft-delete customer
+--Demonstrates: soft delete requirement.
+CREATE PROCEDURE Deactivate_Customer 
+	@CustomerID INT
+AS 
+BEGIN
+	UPDATE Sales.Customer 
+	SET [Status] = 'Inactive'
+	WHERE CustomerID = @CustomerID AND [Status] = 'Active'
+
+END;	
+GO
+
+EXEC Deactivate_Customer
+	@CustomerID = 101;
+
+	
+--Search customers
+--Demonstrates: searching/listing records.
+CREATE PROCEDURE Search_Customer
+	@CustomerID INT = NULL, @LastName NVARCHAR(30) = NULL, @FirstName NVARCHAR(30) = NULL, @City NVARCHAR(20) = NULL, @Status NVARCHAR(20) = NULL
+AS 
+BEGIN
+	SELECT * 
+	FROM Sales.Customer
+	WHERE (@CustomerID IS NULL OR CustomerID = @CustomerID) AND (@LastName IS NULL OR LastName = @LastName) AND (@FirstName IS NULL OR FirstName = @FirstName) 
+	AND (@City IS NULL OR City =  @City) AND (@Status IS NULL OR Status = @Status)
+
+END;	
+GO
+
+EXEC Search_Customer
+	@Status = 'Inactive';
+
+	
+--Project Proposal Procedures
+
+--Add new project proposal. 
+--Demonstrates: INSERT into a table with FK to Sales.Customer.
+CREATE PROCEDURE Add_Proposal
+	@ProjectName NVARCHAR(80), @ProjectDetails NVARCHAR(500), @CustomerID INT, @EstimatedDurationHours INT, @Status NVARCHAR(10)
+AS 
+BEGIN
+	INSERT INTO Sales.ProjectProposal
+	(ProjectName, ProjectDetails, CustomerID, EstimatedDurationHours, [Status])
+
+VALUES (@ProjectName, @ProjectDetails, @CustomerID, @EstimatedDurationHours, @Status)
+END;	
+GO
+
+EXEC Add_Proposal
+    @Projectname = '560 Database',
+    @ProjectDetails = 'Create a working database',
+    @CustomerID = 100,
+    @EstimatedDurationHours = 40,
+    @Status = 'Approved';
+
+SELECT * FROM Sales.Customer
+SELECT * FROM Sales.ProjectProposal
+
+--Update proposal status
+--Demonstrates: business state changes with UPDATE.
+CREATE PROCEDURE Update_Proposal_Status
+	@ProposalID INT, @Status NVARCHAR(10)
+AS 
+BEGIN
+	UPDATE Sales.ProjectProposal
+	SET [Status] = @Status
+	WHERE ProjectProposalID = @ProposalID 
+END;	
+GO
+
+EXEC Update_Proposal_Status
+	@ProposalID = 104,
+    @Status = 'Declined';
+
+SELECT * FROM Sales.ProjectProposal
+
+--List proposals by status / customer
+--Demonstrates: SELECT with JOIN, search/filter.
+CREATE PROCEDURE List_Proposal_By_Status_OR_Customer
+	@CustomerID INT = NULL, @Status NVARCHAR(10) = NULL
+AS 
+BEGIN
+	SELECT C.CustomerID, PP.Status ,C.FirstName + ' ' + C.LastName AS FullName, PP.ProjectProposalID, PP.ProjectName, PP.ProjectDetails
+	FROM Sales.ProjectProposal PP 
+		JOIN Sales.Customer C ON PP.CustomerID = C.CustomerID
+	WHERE C.CustomerID = @CustomerID OR PP.Status = @Status 
+	ORDER BY PP.Status, C.LastName ASC, C.FirstName ASC
+
+END;	
+GO
+
+EXEC List_Proposal_By_Status_OR_Customer
+	
+	@Status = Proposed;
+
+SELECT * FROM Sales.ProjectProposal
+
