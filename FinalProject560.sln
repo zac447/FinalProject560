@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", 
 		CreateTables.sql = CreateTables.sql
 		InsertSampleData.sql = InsertSampleData.sql
 		StoredProcedures.sql = StoredProcedures.sql
+		Views.sql = Views.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface2", "UserInterface2\UserInterface2.csproj", "{09F2E8C8-08A5-4686-B672-E0854939F9F1}"
