@@ -1,10 +1,7 @@
---Core Procedures per table
-
-
 --Customer Procedures
 
 --Add new customer. 
---Demonstrates: INSERT, strings + ints, identity key.
+--INSERT, strings + ints, identity key.
 CREATE PROCEDURE Add_Customer 
 	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
@@ -31,7 +28,7 @@ EXEC Add_Customer
 SELECT * FROM Sales.Customer
 
 --Update customer contact info
---Demonstrates: UPDATE, use of primary key.
+--UPDATE, use of primary key.
 CREATE PROCEDURE Update_Customer 
 	@CustomerID INT, @Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
@@ -68,7 +65,7 @@ EXEC Update_Customer
     @Status = 'Active';
 
 --Soft-delete customer
---Demonstrates: soft delete requirement.
+--soft delete requirement.
 CREATE PROCEDURE Deactivate_Customer 
 	@CustomerID INT
 AS 
@@ -85,7 +82,7 @@ EXEC Deactivate_Customer
 
 	
 --Search customers
---Demonstrates: searching/listing records.
+--searching/listing records.
 CREATE PROCEDURE Search_Customer
 	@CustomerID INT = NULL, @LastName NVARCHAR(30) = NULL, @FirstName NVARCHAR(30) = NULL, @City NVARCHAR(20) = NULL, @Status NVARCHAR(20) = NULL
 AS 
@@ -105,7 +102,7 @@ EXEC Search_Customer
 --Employee Procedures
 
 --Add new employee
---Demonstrates: INSERT, strings + ints, identity key.
+--INSERT, strings + ints, identity key.
 CREATE PROCEDURE Add_Employee 
 	@ManagerID INT, @LastName NVARCHAR(30), @FirstName NVARCHAR(15), @DateOfBirth DATE, 
 	@Title NVARCHAR(30), @DateOfHire DATE, @Status NVARCHAR(10), @HourlyRate DECIMAL(10,2)
@@ -131,7 +128,7 @@ EXEC Add_Employee
 SELECT * FROM HR.Employee
 
 --Update employee info
---Demonstrates: UPDATE, use of primary key.
+--UPDATE, use of primary key.
 CREATE PROCEDURE Update_Employee 
 	@EmployeeID INT, @ManagerID INT, @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @DateOfBirth DATE, @Title NVARCHAR(30) , @Status NVARCHAR(10), @HourlyRate DECIMAL(10,2)
 AS 
@@ -164,7 +161,7 @@ EXEC Update_Employee
 SELECT * FROM HR.Employee
 
 --Soft-delete employee
---Demonstrates: soft delete requirement.
+--soft delete requirement.
 CREATE PROCEDURE Deactivate_Employee
 	@EmployeeID INT
 AS 
@@ -182,7 +179,7 @@ EXEC Deactivate_Employee
 SELECT * FROM HR.Employee
 	
 --Search Employees
---Demonstrates: searching/listing records.
+--searching/listing records.
 CREATE PROCEDURE Search_Employee
 	@EmployeeID INT = NULL, @ManagerID INT = NULL, @LastName NVARCHAR(30) = NULL, @FirstName NVARCHAR(30) = NULL, @DateOfBirth DATE = NULL, @Title NVARCHAR(30) = NULL, 
 	@DateOfHire DATE = NULL, @Status NVARCHAR(10) = NULL, @HourlyRate DECIMAL(10,2) = NULL
@@ -203,7 +200,7 @@ EXEC Search_Employee
 --Project Proposal Procedures
 
 --Add new project proposal. 
---Demonstrates: INSERT into a table with FK to Sales.Customer.
+--INSERT into a table with FK to Sales.Customer.
 CREATE PROCEDURE Add_Proposal
 	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
@@ -230,7 +227,7 @@ EXEC Add_Proposal
 SELECT * FROM Sales.Customer
 
 --Update customer contact info
---Demonstrates: UPDATE, use of primary key.
+--UPDATE, use of primary key.
 CREATE PROCEDURE Update_Customer 
 	@CustomerID INT, @Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
@@ -267,7 +264,7 @@ EXEC Update_Customer
     @Status = 'Active';
 
 --Soft-delete customer
---Demonstrates: soft delete requirement.
+--soft delete requirement.
 CREATE PROCEDURE Deactivate_Customer 
 	@CustomerID INT
 AS 
@@ -284,7 +281,7 @@ EXEC Deactivate_Customer
 
 	
 --Search customers
---Demonstrates: searching/listing records.
+--searching/listing records.
 CREATE PROCEDURE Search_Customer
 	@CustomerID INT = NULL, @LastName NVARCHAR(30) = NULL, @FirstName NVARCHAR(30) = NULL, @City NVARCHAR(20) = NULL, @Status NVARCHAR(20) = NULL
 AS 
@@ -304,7 +301,7 @@ EXEC Search_Customer
 --Project Proposal Procedures
 
 --Add new project proposal. 
---Demonstrates: INSERT into a table with FK to Sales.Customer.
+--INSERT into a table with FK to Sales.Customer.
 CREATE PROCEDURE Add_Proposal
 	@ProjectName NVARCHAR(80), @ProjectDetails NVARCHAR(500), @CustomerID INT, @EstimatedDurationHours INT, @Status NVARCHAR(10)
 AS 
@@ -327,7 +324,7 @@ SELECT * FROM Sales.Customer
 SELECT * FROM Sales.ProjectProposal
 
 --Update proposal status
---Demonstrates: business state changes with UPDATE.
+--business state changes with UPDATE.
 CREATE PROCEDURE Update_Proposal_Status
 	@ProposalID INT, @Status NVARCHAR(10)
 AS 
@@ -345,7 +342,7 @@ EXEC Update_Proposal_Status
 SELECT * FROM Sales.ProjectProposal
 
 --List proposals by status / customer
---Demonstrates: SELECT with JOIN, search/filter.
+--SELECT with JOIN, search/filter.
 CREATE PROCEDURE List_Proposal_By_Status_OR_Customer
 	@CustomerID INT = NULL, @Status NVARCHAR(10) = NULL
 AS 
@@ -368,7 +365,7 @@ SELECT * FROM Sales.ProjectProposal
 --Project Procedures
 
 --Create project from an approved proposal
---Demonstrates: INSERT based on another table, JOIN/SELECT inside procedure, foreign keys working.
+--INSERT based on another table, JOIN/SELECT inside procedure, foreign keys working.
 
 CREATE PROCEDURE Add_Project
 	@ProjectProposalID INT, @ManagerID INT, @StartDate DATE, @Status NVARCHAR(10)
@@ -401,7 +398,7 @@ EXEC Add_Project
 SELECT * FROM Production.Project
 
 --Update project status and end date
---Demonstrates: UPDATE, date handling.
+--UPDATE, date handling.
 CREATE PROCEDURE Update_Project_Status
 	@ProjectID INT, @Status NVARCHAR(10)
 AS 
@@ -423,7 +420,7 @@ EXEC Update_Project_Status
 SELECT * FROM Production.Project
 
 --Search Projects
---Demonstrates: multi-table JOIN search.
+--multi-table JOIN search.
 CREATE PROCEDURE Search_Projects
 	@CustomerName NVARCHAR(80) = NULL,@ManagerID INT = NULL ,@Status NVARCHAR(10) = NULL
 AS 
@@ -446,7 +443,7 @@ EXEC Search_Projects
 --Project Hours Procedures
 
 --Log hours worked on a project
---Demonstrates: INSERT with FK to Project and Employee.
+--INSERT with FK to Project and Employee.
 CREATE PROCEDURE Log_Hours
 	@ProjectID INT, @EmployeeID INT, @Description NVARCHAR(500), @Date DATE, @Hours INT
 AS 
@@ -468,7 +465,7 @@ EXEC Log_Hours
 SELECT * FROM Production.ProjectHours
 
 --Update a time entry
---Demonstrates: UPDATE with identity key.
+--UPDATE with identity key.
 CREATE PROCEDURE Update_Time_Entry
 	@ProjectHoursID INT, @Hours INT, @Description NVARCHAR(500)
 AS 
@@ -485,7 +482,7 @@ EXEC Update_Time_Entry
 	@Description = 'Still at it G'; 
 
 --Get total hours per project
---Demonstrates: aggregation, grouping, joins.
+--aggregation, grouping, joins.
 CREATE PROCEDURE Get_Total_Hours_Per_Project
 	@ProjectID INT
 AS 
