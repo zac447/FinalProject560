@@ -500,3 +500,67 @@ EXEC Get_Total_Hours_Per_Project
 	@ProjectID = 2
 
 SELECT * FROM Production.ProjectHours
+
+
+--Aggregating Queries Per Projet Proposal
+--Query 3
+CREATE PROCEDURE MonthlySalesByEmployee
+    @StartDate DATE = NULL,
+    @EndDate   DATE = NULL
+AS
+BEGIN
+	WITH CTE AS (
+	SELECT PH.EmployeeID, PH.WorkPerformedDate,
+        PH.[Hours],
+        PRT.HourlyRate
+    FROM Production.ProjectHours PH
+    JOIN Production.ProjectRateType PRT
+        ON PH.ProjectID = PRT.ProjectID
+       AND PH.WorkPerformedDate >= PRT.StartDate
+       AND (PRT.EndDate IS NULL OR PH.WorkPerformedDate <= PRT.EndDate)
+	), Aggregated AS
+	(
+    SELECT
+        YEAR(CTE.WorkPerformedDate)  AS WorkYear, MONTH(CTE.WorkPerformedDate) AS WorkMonth, E.EmployeeID,
+        E.FirstName + ' ' + E.LastName AS EmployeeName,
+        SUM(CTE.[Hours])                AS TotalHours,
+        SUM(CTE.[Hours] * CTE.HourlyRate) AS TotalSales
+    FROM CTE 
+    JOIN HR.Employee E
+        ON CTE.EmployeeID = E.EmployeeID
+    GROUP BY
+        YEAR(CTE.WorkPerformedDate),
+        MONTH(CTE.WorkPerformedDate),
+        E.EmployeeID,
+        E.FirstName,
+        E.LastName
+	)
+    SELECT WorkYear, WorkMonth, EmployeeID, EmployeeName, TotalHours, TotalSales,
+    DENSE_RANK() OVER ( PARTITION BY WorkYear, WorkMonth ORDER BY TotalSales DESC
+    ) AS SalesRankInMonth
+FROM Aggregated
+ORDER BY WorkYear, WorkMonth, SalesRankInMonth, EmployeeName;
+END;
+GO
+
+EXEC MonthlySalesByEmployee @StartDate = '2024-01-01', @EndDate = '2024-12-31';
+
+--Query 4
+CREATE PROCEDURE ManagerApprovedProjects
+    @ManagerID INT = NULL, @Status NVARCHAR(10) = NULL   
+AS
+BEGIN
+    IF @Status IS NULL
+        SET @Status = 'Completed';
+    SELECT
+        E.EmployeeID AS ManagerID, E.FirstName + ' ' + E.LastName AS ManagerName, P.ProjectID, P.ProjectName, C.CustomerID,
+        C.FirstName + ' ' + C.LastName AS CustomerName, P.[Status], P.StartDate, P.EndDate
+    FROM Production.Project P
+    JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
+    JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+    WHERE P.[Status] = @Status AND (@ManagerID IS NULL OR P.ManagerID = @ManagerID)
+    ORDER BY ManagerName, P.ProjectName;
+END;
+GO
+
+EXEC ManagerApprovedProjects @Status = 'InProgress'
