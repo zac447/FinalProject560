@@ -38,7 +38,7 @@ BEGIN
 	CREATE TABLE Sales.Customer
 	(
 		CustomerID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-		Email NVARCHAR(30) NOT NULL,
+		Email NVARCHAR(50) NOT NULL,
 		LastName NVARCHAR(30) NOT NULL,
 		FirstName NVARCHAR(30) NOT NULL,
 		Phone NVARCHAR(10) NOT NULL,
@@ -70,8 +70,6 @@ BEGIN
 
 		CONSTRAINT FK1_Sales_ProjectProposal_CustID FOREIGN KEY(CustomerID)
 			REFERENCES Sales.Customer(CustomerID), 
-
-		CONSTRAINT UK_Sales_ProjectProposal_Project_Name UNIQUE (ProjectName)
 	);
 END;
 
@@ -81,7 +79,7 @@ BEGIN
 	(
 		ProjectID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		CustomerID INT NOT NULL,
-		ProjectName NVARCHAR(20) NOT NULL,
+		ProjectName NVARCHAR(80) NOT NULL,
 		StartDate DATE NOT NULL,
 		EndDate DATE NULL,
 		ManagerID INT NOT NULL,
@@ -93,7 +91,6 @@ BEGIN
 		CONSTRAINT FK2_Production_Project_ManagerID FOREIGN KEY(ManagerID)
 			REFERENCES HR.Employee(EmployeeID),
 
-		CONSTRAINT UK_Production_Project_Project_Name UNIQUE(ProjectName)
 	);
 END;
 
@@ -118,7 +115,7 @@ BEGIN
 	(
 		MaterialID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 		ProjectID INT NOT NULL,
-		[Description] NVARCHAR(40) NOT NULL,
+		[Description] NVARCHAR(80) NOT NULL,
 		Quantity INT NOT NULL,
 		Total DECIMAL(10,2) NOT NULL,
 
