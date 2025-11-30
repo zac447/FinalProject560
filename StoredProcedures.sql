@@ -365,3 +365,80 @@ EXEC List_Proposal_By_Status_OR_Customer
 
 SELECT * FROM Sales.ProjectProposal
 
+--Project Procedures
+
+--Create project from an approved proposal
+--Demonstrates: INSERT based on another table, JOIN/SELECT inside procedure, foreign keys working.
+
+CREATE PROCEDURE Add_Project
+	@ProjectProposalID INT, @ManagerID INT, @StartDate DATE, @Status NVARCHAR(10)
+AS 
+BEGIN
+	WITH CTE AS(
+		SELECT PP.ProjectName, C.CustomerID 
+		FROM Sales.ProjectProposal PP 
+			JOIN Sales.Customer C ON PP.CustomerID = C.CustomerID
+		WHERE PP.ProjectProposalID = @ProjectProposalID
+	)
+	INSERT INTO Production.Project
+	(CustomerID, ProjectName, StartDate, EndDate, ManagerID, [Status])
+	SELECT CustomerID,
+           ProjectName,
+           @StartDate,
+           NULL,
+           @ManagerID,
+           @Status
+    FROM CTE;
+END;	
+GO
+
+EXEC Add_Project
+    @ProjectProposalID = 2,
+    @ManagerID = 2,
+	@StartDate = '2025-11-29',
+	@Status = 'NotStarted';
+
+SELECT * FROM Production.Project
+
+--Update project status and end date
+--Demonstrates: UPDATE, date handling.
+CREATE PROCEDURE Update_Project_Status
+	@ProjectID INT, @Status NVARCHAR(10)
+AS 
+BEGIN 
+	UPDATE Production.Project
+	SET [Status] = @Status, 
+	EndDate = CASE
+		WHEN @Status = 'Completed' AND EndDate IS NULL THEN GETDATE()
+		ELSE EndDate
+		END
+	WHERE ProjectID = @ProjectID 
+END;	
+GO
+
+EXEC Update_Project_Status
+	@ProjectID = 100,
+    @Status = 'Completed';	
+
+SELECT * FROM Production.Project
+
+--Search Projects
+--Demonstrates: multi-table JOIN search.
+CREATE PROCEDURE Search_Projects
+	@CustomerName NVARCHAR(80) = NULL,@ManagerID INT = NULL ,@Status NVARCHAR(10) = NULL
+AS 
+BEGIN
+	SELECT C.FirstName + ' ' + C.LastName AS FullCustomerName, P.ProjectName, 
+	C.Address + ' ' + C.City + ' ' + C.State AS FullCustomerAddress, C.ZipCode ,E.FirstName + ' ' + E.LastName AS Manager,
+		P.[Status], P.StartDate, P.EndDate 
+	FROM Production.Project P 
+		JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+		JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
+	WHERE C.FirstName = @CustomerName OR E.EmployeeID = @ManagerID OR P.Status = @Status 
+	ORDER BY FullCustomerName ASC,ProjectName ASC ,EmployeeID ASC
+
+END;	
+GO
+
+EXEC Search_Projects
+	@Status = InProgress;
