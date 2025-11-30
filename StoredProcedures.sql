@@ -442,3 +442,64 @@ GO
 
 EXEC Search_Projects
 	@Status = InProgress;
+
+--Project Hours Procedures
+
+--Log hours worked on a project
+--Demonstrates: INSERT with FK to Project and Employee.
+CREATE PROCEDURE Log_Hours
+	@ProjectID INT, @EmployeeID INT, @Description NVARCHAR(500), @Date DATE, @Hours INT
+AS 
+BEGIN
+	INSERT INTO Production.ProjectHours
+	(ProjectID, EmployeeID, [Description], WorkPerformedDate, [Hours])
+
+VALUES (@ProjectID, @EmployeeID, @Description, @Date, @Hours)
+END;	
+GO
+
+EXEC Log_Hours
+    @ProjectID = 50,
+    @EmployeeID = 3,
+    @Description = 'Working Hard',
+    @Date = '2025-01-01',
+    @Hours = 9;
+
+SELECT * FROM Production.ProjectHours
+
+--Update a time entry
+--Demonstrates: UPDATE with identity key.
+CREATE PROCEDURE Update_Time_Entry
+	@ProjectHoursID INT, @Hours INT, @Description NVARCHAR(500)
+AS 
+BEGIN 
+	UPDATE Production.ProjectHours
+	SET [Hours] = @Hours, [Description] = @Description, WorkPerformedDate = GETDATE() 
+	WHERE ProjectHoursID = @ProjectHoursID
+END;	
+GO
+
+EXEC Update_Time_Entry
+	@ProjectHoursID = 50,
+	@Hours = 20,
+	@Description = 'Still at it G'; 
+
+--Get total hours per project
+--Demonstrates: aggregation, grouping, joins.
+CREATE PROCEDURE Get_Total_Hours_Per_Project
+	@ProjectID INT
+AS 
+BEGIN
+SELECT PH.ProjectID, SUM(PH.Hours) AS ProjectHours, P.ProjectID, C.FirstName, C.LastName, P.ProjectName
+FROM Production.ProjectHours PH
+	JOIN Production.Project P ON PH.ProjectID = P.ProjectID
+	LEFT JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+WHERE PH.ProjectID = @ProjectID
+GROUP BY PH.ProjectID, P.ProjectID,C.FirstName, C.LastName,P.ProjectName
+END;
+GO
+
+EXEC Get_Total_Hours_Per_Project
+	@ProjectID = 2
+
+SELECT * FROM Production.ProjectHours
