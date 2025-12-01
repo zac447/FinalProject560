@@ -564,3 +564,64 @@ END;
 GO
 
 EXEC ManagerApprovedProjects @Status = 'InProgress'
+
+-- Query 5: Project Cost Summary, materials and hours
+CREATE PROCEDURE GetProjectCostSummary
+    @ProjectID INT = NULL,
+    @Status NVARCHAR(10) = NULL
+AS
+BEGIN
+    SELECT 
+        P.ProjectID,
+        P.ProjectName,
+        P.[Status],
+        C.FirstName + ' ' + C.LastName AS CustomerName,
+        E.FirstName + ' ' + E.LastName AS ManagerName,
+        
+        -- materials
+        SUM(ISNULL(PM.Total, 0)) AS TotalMaterialCost,
+        
+        -- hours
+        SUM(ISNULL(PH.[Hours], 0)) AS TotalLaborHours,
+        AVG(ISNULL(PRT.HourlyRate, 0)) AS AvgHourlyRate,
+        SUM(ISNULL(PH.[Hours], 0) * ISNULL(PRT.HourlyRate, 0)) AS TotalLaborCost,
+        
+        -- overall cost
+        SUM(ISNULL(PM.Total, 0)) + 
+        SUM(ISNULL(PH.[Hours], 0) * ISNULL(PRT.HourlyRate, 0)) AS TotalProjectCost,
+        
+        P.StartDate,
+        P.EndDate
+        
+    FROM Production.Project P
+    JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+    JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
+    LEFT JOIN Production.ProjectMaterials PM ON P.ProjectID = PM.ProjectID
+    LEFT JOIN Production.ProjectHours PH ON P.ProjectID = PH.ProjectID
+    LEFT JOIN Production.ProjectRateType PRT 
+        ON P.ProjectID = PRT.ProjectID
+        AND PH.WorkPerformedDate >= PRT.StartDate
+        AND (PRT.EndDate IS NULL OR PH.WorkPerformedDate <= PRT.EndDate)
+    
+    WHERE (@ProjectID IS NULL OR P.ProjectID = @ProjectID)
+      AND (@Status IS NULL OR P.[Status] = @Status)
+    
+    GROUP BY P.ProjectID, P.ProjectName, P.[Status], C.FirstName, C.LastName, E.FirstName, E.LastName, P.StartDate, P.EndDate
+    
+    ORDER BY TotalProjectCost DESC, P.ProjectName;
+END;
+GO
+
+-- example executions
+
+-- get all project costs
+EXEC GetProjectCostSummary;
+
+-- get specific project cost
+EXEC GetProjectCostSummary @ProjectID = 1;
+
+-- get costs for completed projects only
+EXEC GetProjectCostSummary @Status = 'Completed';
+
+-- get costs for in progress projects only
+EXEC GetProjectCostSummary @Status = 'InProgress';
