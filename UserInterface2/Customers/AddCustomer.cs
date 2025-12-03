@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,12 @@ namespace UserInterface2
 {
     public partial class AddCustomer : Form
     {
-        private UserInterface Form = new UserInterface();
+        private readonly SqlCustomerRepository _repo;
 
-        public AddCustomer()
+        public AddCustomer(SqlCustomerRepository repo)
         {
             InitializeComponent();
+            _repo = repo;
         }
 
         private void uxCancel_Click(object sender, EventArgs e)
@@ -26,13 +28,31 @@ namespace UserInterface2
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(Form.ValidateNulls(uxEmailText.Text, "Email") && Form.ValidateNulls(uxFirstNameText.Text, "First Name") && Form.ValidateNulls(uxLastNameText.Text, "Last Name") && Form.ValidateNulls(uxPhoneText.Text, "Phone Number") &&
-               Form.ValidateNulls(uxAddressText.Text, "Address") && Form.ValidateNulls(uxCityText.Text, "City") && Form.ValidateNulls(uxStateText.Text, "State") && Form.ValidateNulls(uxZipCodeText.Text, "Zip Code") &&
-               Form.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
+            if(Validation.ValidateNulls(uxEmailText.Text, "Email") && Validation.ValidateNulls(uxFirstNameText.Text, "First Name") && Validation.ValidateNulls(uxLastNameText.Text, "Last Name") && Validation.ValidateNulls(uxPhoneText.Text, "Phone Number") &&
+               Validation.ValidateNulls(uxAddressText.Text, "Address") && Validation.ValidateNulls(uxCityText.Text, "City") && Validation.ValidateNulls(uxStateText.Text, "State") && Validation.ValidateNulls(uxZipCodeText.Text, "Zip Code") &&
+               Validation.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
             {
+                
+                _repo.CreateCustomer(uxEmailText.Text, uxLastNameText.Text, uxFirstNameText.Text, uxPhoneText.Text,
+                    uxAddressText.Text, uxCityText.Text, uxStateText.Text, uxZipCodeText.Text,
+                    checkBox1.Checked || checkBox2.Checked ? ProjectData.Models.CustomerStatus.Active : ProjectData.Models.CustomerStatus.Inactive);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        public bool CheckboxChecked(bool isChecked)
+        {
+            //bool isChecked;
+            if(checkBox1.Checked || checkBox2.Checked)
+            {
+                isChecked = true;
+            }
+            else
+            {
+                isChecked = false;
+            }
+            return false;
         }
     }
 }

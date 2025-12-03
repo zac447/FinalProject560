@@ -2,7 +2,7 @@
 
 --Add new customer. 
 --INSERT, strings + ints, identity key.
-CREATE PROCEDURE Add_Customer 
+CREATE PROCEDURE Sales.Add_Customer --added sales
 	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
 AS 
@@ -14,7 +14,7 @@ VALUES (@Email, @LastName, @FirstName, @Phone, @Address, @City, @State, @ZipCode
 END;	
 GO;
 
-EXEC Add_Customer 
+EXEC Sales.Add_Customer 
     @Email = 'testproc@gmail.com',
     @LastName = 'Smith',
     @FirstName = 'John',

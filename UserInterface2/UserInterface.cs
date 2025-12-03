@@ -1,109 +1,153 @@
+using ProjectData;
+using ProjectData.DataDelegates;
+using System.Text;
+
 namespace UserInterface2
 {
     public partial class UserInterface : Form
     {
+        private readonly SqlCustomerRepository _custrepo;
+
+        private readonly SqlEmployeeRepository _empRepo;
+
+        private readonly SqlProjectHoursRepository _projHoursRepo;
+
+        private readonly SqlProjectProposalRepository _proposalRepo;
+
+        private readonly SqlProjectRepository _projectRepo;
+
+        private readonly SqlReportingRepository _reportRepo;
+
+        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDb;Database=FinalProject560DB;Integrated Security=SSPI;";
+
         public UserInterface()
         {
             InitializeComponent();
-        }
-
-        public bool ValidateNulls(string value, string field)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                MessageBox.Show($"{field} cannot be left blank.");
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckCheckBoxes(bool box1, bool box2, string field)
-        {
-            if (box1 == false && box2 == false)
-            {
-                MessageBox.Show($"A {field} must be selected.");
-                return false;
-            }
-            if (box1 == true && box2 == true)
-            {
-                MessageBox.Show($"Only one {field} can be selected.");
-                return false;
-            }
-            return true;
+            _custrepo = new SqlCustomerRepository(ConnectionString);
+            _empRepo = new SqlEmployeeRepository(ConnectionString);
+            _projHoursRepo = new SqlProjectHoursRepository(ConnectionString);
+            _proposalRepo = new SqlProjectProposalRepository(ConnectionString);
+            _reportRepo = new SqlReportingRepository(ConnectionString);
         }
 
         private void uxSearchButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            string term = uxSearchBar.Text.Trim();
+            var custResults = _custrepo.SearchCustomers(lastName: term);
+            var empResults = _empRepo.SearchEmployees(lastName: term);
+            uxOutput.DataSource = custResults.ToList();
+            uxOutput.DataSource = empResults.ToList();
         }
 
         private void uxAddCustomer_Click(object sender, EventArgs e)
         {
-            AddCustomer addNewCustomer = new AddCustomer();
-            addNewCustomer.ShowDialog();
+            AddCustomer addNewCustomer = new AddCustomer(_custrepo);
+            if(addNewCustomer.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _custrepo.SearchCustomers();
+            }
         }
 
         private void uxUpdateCustomer_Click(object sender, EventArgs e)
         {
-            UpdateCustomer updateCustomer = new UpdateCustomer();
-            updateCustomer.ShowDialog();
+            UpdateCustomer updateCustomer = new UpdateCustomer(_custrepo);
+            if(updateCustomer.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _custrepo.SearchCustomers();
+            }
         }
 
         private void uxAddEmployee_Click(object sender, EventArgs e)
         {
-            AddEmployee addNewEmployee = new AddEmployee();
-            addNewEmployee.ShowDialog();
+            AddEmployee addNewEmployee = new AddEmployee(_empRepo);
+            if(addNewEmployee.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _empRepo.SearchEmployees();
+            }
         }
 
         private void uxUpdateEmployee_Click(object sender, EventArgs e)
         {
-            UpdateEmployee updateEmployee = new UpdateEmployee();
-            updateEmployee.ShowDialog();
+            UpdateEmployee updateEmployee = new UpdateEmployee(_empRepo);
+            if(updateEmployee.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _empRepo.SearchEmployees();
+            }
         }
 
         private void uxEmployeeHours_Click(object sender, EventArgs e)
         {
             LogHours logHours = new LogHours();
-            logHours.ShowDialog();
+            if (logHours.ShowDialog() == DialogResult.OK)
+            {
+                //uxOutput.DataSource = _projHoursRepo.LogHours();
+            }
         }
 
         private void uxAddProposal_Click(object sender, EventArgs e)
         {
-            AddProposal addProposal = new AddProposal();
-            addProposal.ShowDialog();
+            AddProposal addProposal = new AddProposal(_proposalRepo);
+            if(addProposal.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _proposalRepo.ListProposals();
+            }
         }
 
         private void uxProposalStatus_Click(object sender, EventArgs e)
         {
-            UpdateProposalStatus updateStatus = new UpdateProposalStatus();
-            updateStatus.ShowDialog();
+            UpdateProposalStatus updateStatus = new UpdateProposalStatus(_proposalRepo);
+            if(updateStatus.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _proposalRepo.ListProposals();
+            }
         }
 
         private void uxAddProject_Click(object sender, EventArgs e)
         {
-            AddProject addProject = new AddProject();
-            addProject.ShowDialog();
+            AddProject addProject = new AddProject(_projectRepo);
+            if(addProject.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _projectRepo.SearchProjects();
+            }
         }
 
         private void uxProjectStatus_Click(object sender, EventArgs e)
         {
-            UpdateProposalStatus updateStatus = new UpdateProposalStatus();
-            updateStatus.ShowDialog();
+            UpdateProjectStatus updateStatus = new UpdateProjectStatus(_projectRepo);
+            if(updateStatus.ShowDialog() == DialogResult.OK)
+            {
+                uxOutput.DataSource = _projectRepo.SearchProjects();
+            }
         }
 
         private void uxTotalHoursPerProject_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            using TotalHoursPerProject hours = new TotalHoursPerProject();
+            if (hours.ShowDialog() == DialogResult.OK)
+            {
+                var results = _projHoursRepo.GetTotalHoursForProject(hours.ProjectID);
+                uxOutput.DataSource = new List<ProjectHoursSummary> { results };
+            }
         }
 
         private void uxMonthlySales_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            using MonthlySalesByEmployee salesByEmp = new MonthlySalesByEmployee();
+            if(salesByEmp.ShowDialog() == DialogResult.OK)
+            {
+                var results = _reportRepo.GetMonthlySalesByEmployee(salesByEmp.Start, salesByEmp.End);
+                uxOutput.DataSource = results.ToList();
+            }
         }
 
         private void uxCostSummary_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var costSummary = _reportRepo.GetProjectCostSummary();
+            StringBuilder sb = new();
+            foreach(var cost in costSummary)
+            {
+                sb.AppendLine($"ProjectID: {cost.ProjectId}, ProjectName: {cost.ProjectName}, TotalHours: {cost.TotalLaborHours}, TotalLaborCost: {cost.TotalLaborCost}, TotalMaterialCost: {cost.TotalMaterialCost}, TotalCost: {cost.TotalProjectCost}");
+            }
         }
     }
 }

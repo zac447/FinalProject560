@@ -33,14 +33,12 @@
             uxFirstName = new Label();
             uxDateofBirth = new Label();
             uxTitle = new Label();
-            uxDateofHire = new Label();
             uxStatus = new Label();
             uxManagerIDText = new TextBox();
             uxLastNameText = new TextBox();
             uxFirstNameText = new TextBox();
             uxDateofBirthText = new TextBox();
             uxTitleText = new TextBox();
-            uxDateofHireText = new TextBox();
             checkBox1 = new CheckBox();
             checkBox2 = new CheckBox();
             uxOK = new Button();
@@ -101,20 +99,10 @@
             uxTitle.TabIndex = 4;
             uxTitle.Text = "Title";
             // 
-            // uxDateofHire
-            // 
-            uxDateofHire.AutoSize = true;
-            uxDateofHire.Location = new Point(22, 315);
-            uxDateofHire.Margin = new Padding(2, 0, 2, 0);
-            uxDateofHire.Name = "uxDateofHire";
-            uxDateofHire.Size = new Size(108, 25);
-            uxDateofHire.TabIndex = 4;
-            uxDateofHire.Text = "Date of Hire";
-            // 
             // uxStatus
             // 
             uxStatus.AutoSize = true;
-            uxStatus.Location = new Point(22, 363);
+            uxStatus.Location = new Point(22, 320);
             uxStatus.Margin = new Padding(2, 0, 2, 0);
             uxStatus.Name = "uxStatus";
             uxStatus.Size = new Size(60, 25);
@@ -161,18 +149,10 @@
             uxTitleText.Size = new Size(292, 31);
             uxTitleText.TabIndex = 13;
             // 
-            // uxDateofHireText
-            // 
-            uxDateofHireText.Location = new Point(138, 315);
-            uxDateofHireText.Margin = new Padding(2);
-            uxDateofHireText.Name = "uxDateofHireText";
-            uxDateofHireText.Size = new Size(292, 31);
-            uxDateofHireText.TabIndex = 13;
-            // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(160, 363);
+            checkBox1.Location = new Point(160, 320);
             checkBox1.Margin = new Padding(2);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(86, 29);
@@ -183,7 +163,7 @@
             // checkBox2
             // 
             checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(267, 363);
+            checkBox2.Location = new Point(267, 320);
             checkBox2.Margin = new Padding(2);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(98, 29);
@@ -231,18 +211,18 @@
             uxEmployeeSearch.Size = new Size(149, 31);
             uxEmployeeSearch.TabIndex = 22;
             // 
-            // uxHourlyRath
+            // uxHourlyRate
             // 
             uxHourlyRate.AutoSize = true;
-            uxHourlyRate.Location = new Point(22, 406);
-            uxHourlyRate.Name = "uxHourlyRath";
+            uxHourlyRate.Location = new Point(22, 371);
+            uxHourlyRate.Name = "uxHourlyRate";
             uxHourlyRate.Size = new Size(105, 25);
             uxHourlyRate.TabIndex = 23;
             uxHourlyRate.Text = "Hourly Rate";
             // 
             // uxHourlyRateText
             // 
-            uxHourlyRateText.Location = new Point(138, 406);
+            uxHourlyRateText.Location = new Point(138, 371);
             uxHourlyRateText.Name = "uxHourlyRateText";
             uxHourlyRateText.Size = new Size(292, 31);
             uxHourlyRateText.TabIndex = 24;
@@ -261,8 +241,6 @@
             Controls.Add(checkBox2);
             Controls.Add(checkBox1);
             Controls.Add(uxTitleText);
-            Controls.Add(uxDateofHireText);
-            Controls.Add(uxDateofHire);
             Controls.Add(uxDateofBirthText);
             Controls.Add(uxFirstNameText);
             Controls.Add(uxLastNameText);
@@ -287,8 +265,6 @@
         private Label uxFirstName;
         private Label uxDateofBirth;
         private Label uxTitle;
-        private Label uxDateofHire;
-        private TextBox uxDateofHireText;
         private Label uxState;
         private Label uxZip;
         private Label uxStatus;

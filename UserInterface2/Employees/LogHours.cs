@@ -12,7 +12,7 @@ namespace UserInterface2
 {
     public partial class LogHours : Form
     {
-        UserInterface Form = new UserInterface();
+        
 
         public LogHours()
         {
@@ -26,7 +26,7 @@ namespace UserInterface2
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(Form.ValidateNulls(uxProjectIDText.Text, "ProjectID") && Form.ValidateNulls(uxEmployeeIDText.Text, "EmployeeID") && Form.ValidateNulls(uxDateText.Text, "Date") && Form.ValidateNulls(uxHoursText.Text, "Hours") && Form.ValidateNulls(uxDescriptionText.Text, "Description"))
+            if(Validation.ValidateNulls(uxProjectIDText.Text, "ProjectID") && Validation.ValidateNulls(uxEmployeeIDText.Text, "EmployeeID") && Validation.ValidateNulls(uxDateText.Text, "Date") && Validation.ValidateNulls(uxHoursText.Text, "Hours") && Validation.ValidateNulls(uxDescriptionText.Text, "Description"))
             {
                 this.DialogResult = DialogResult.OK;
                 this.Close();

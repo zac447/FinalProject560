@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectData;
+using ProjectData.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +14,12 @@ namespace UserInterface2
 {
     public partial class UpdateProposalStatus : Form
     {
-        UserInterface Form = new UserInterface();
+        private readonly SqlProjectProposalRepository _repo;
 
-        public UpdateProposalStatus()
+        public UpdateProposalStatus(SqlProjectProposalRepository repo)
         {
             InitializeComponent();
+            _repo = repo;
         }
 
         private void uxCancel_Click(object sender, EventArgs e)
@@ -26,11 +29,21 @@ namespace UserInterface2
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(Form.ValidateNulls(uxProposalSearch.Text, "Select Proposal") && Form.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
+            if(Validation.ValidateNulls(uxProposalSearch.Text, "Select Proposal") && Validation.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
             {
+                _repo.UpdateProposalStatus(int.Parse(uxProposalSearch.Text), GetCheckBoxStatus(checkBox1.Checked, checkBox2.Checked));
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private ProposalStatus GetCheckBoxStatus(bool isActivated, bool inactive)
+        {
+            if (isActivated && !inactive)
+            {
+                return ProposalStatus.Approved;
+            }
+            else { return ProposalStatus.Declined; }
         }
     }
 }

@@ -54,149 +54,167 @@
             // uxEmail
             // 
             uxEmail.AutoSize = true;
-            uxEmail.Location = new Point(36, 38);
+            uxEmail.Location = new Point(21, 23);
+            uxEmail.Margin = new Padding(2, 0, 2, 0);
             uxEmail.Name = "uxEmail";
-            uxEmail.Size = new Size(88, 41);
+            uxEmail.Size = new Size(54, 25);
             uxEmail.TabIndex = 0;
             uxEmail.Text = "Email";
             // 
             // uxLastName
             // 
             uxLastName.AutoSize = true;
-            uxLastName.Location = new Point(36, 97);
+            uxLastName.Location = new Point(21, 59);
+            uxLastName.Margin = new Padding(2, 0, 2, 0);
             uxLastName.Name = "uxLastName";
-            uxLastName.Size = new Size(157, 41);
+            uxLastName.Size = new Size(95, 25);
             uxLastName.TabIndex = 1;
             uxLastName.Text = "Last Name";
             // 
             // uxFirstName
             // 
             uxFirstName.AutoSize = true;
-            uxFirstName.Location = new Point(36, 161);
+            uxFirstName.Location = new Point(21, 98);
+            uxFirstName.Margin = new Padding(2, 0, 2, 0);
             uxFirstName.Name = "uxFirstName";
-            uxFirstName.Size = new Size(160, 41);
+            uxFirstName.Size = new Size(97, 25);
             uxFirstName.TabIndex = 2;
             uxFirstName.Text = "First Name";
             // 
             // uxPhoneNumber
             // 
             uxPhoneNumber.AutoSize = true;
-            uxPhoneNumber.Location = new Point(36, 220);
+            uxPhoneNumber.Location = new Point(21, 134);
+            uxPhoneNumber.Margin = new Padding(2, 0, 2, 0);
             uxPhoneNumber.Name = "uxPhoneNumber";
-            uxPhoneNumber.Size = new Size(220, 41);
+            uxPhoneNumber.Size = new Size(132, 25);
             uxPhoneNumber.TabIndex = 3;
             uxPhoneNumber.Text = "Phone Number";
             // 
             // uxAddress
             // 
             uxAddress.AutoSize = true;
-            uxAddress.Location = new Point(36, 284);
+            uxAddress.Location = new Point(21, 173);
+            uxAddress.Margin = new Padding(2, 0, 2, 0);
             uxAddress.Name = "uxAddress";
-            uxAddress.Size = new Size(125, 41);
+            uxAddress.Size = new Size(77, 25);
             uxAddress.TabIndex = 4;
             uxAddress.Text = "Address";
             // 
             // uxCity
             // 
             uxCity.AutoSize = true;
-            uxCity.Location = new Point(36, 349);
+            uxCity.Location = new Point(21, 213);
+            uxCity.Margin = new Padding(2, 0, 2, 0);
             uxCity.Name = "uxCity";
-            uxCity.Size = new Size(69, 41);
+            uxCity.Size = new Size(42, 25);
             uxCity.TabIndex = 5;
             uxCity.Text = "City";
             // 
             // uxState
             // 
             uxState.AutoSize = true;
-            uxState.Location = new Point(36, 418);
+            uxState.Location = new Point(21, 255);
+            uxState.Margin = new Padding(2, 0, 2, 0);
             uxState.Name = "uxState";
-            uxState.Size = new Size(84, 41);
+            uxState.Size = new Size(51, 25);
             uxState.TabIndex = 6;
             uxState.Text = "State";
             // 
             // uxZip
             // 
             uxZip.AutoSize = true;
-            uxZip.Location = new Point(36, 492);
+            uxZip.Location = new Point(21, 300);
+            uxZip.Margin = new Padding(2, 0, 2, 0);
             uxZip.Name = "uxZip";
-            uxZip.Size = new Size(139, 41);
+            uxZip.Size = new Size(84, 25);
             uxZip.TabIndex = 7;
             uxZip.Text = "Zip Code";
             // 
             // uxStatus
             // 
             uxStatus.AutoSize = true;
-            uxStatus.Location = new Point(36, 567);
+            uxStatus.Location = new Point(21, 346);
+            uxStatus.Margin = new Padding(2, 0, 2, 0);
             uxStatus.Name = "uxStatus";
-            uxStatus.Size = new Size(98, 41);
+            uxStatus.Size = new Size(60, 25);
             uxStatus.TabIndex = 8;
             uxStatus.Text = "Status";
             // 
             // uxEmailText
             // 
-            uxEmailText.Location = new Point(272, 38);
+            uxEmailText.Location = new Point(160, 23);
+            uxEmailText.Margin = new Padding(2, 2, 2, 2);
             uxEmailText.Name = "uxEmailText";
-            uxEmailText.Size = new Size(494, 47);
+            uxEmailText.Size = new Size(292, 31);
             uxEmailText.TabIndex = 9;
             // 
             // uxLastNameText
             // 
-            uxLastNameText.Location = new Point(272, 97);
+            uxLastNameText.Location = new Point(160, 59);
+            uxLastNameText.Margin = new Padding(2, 2, 2, 2);
             uxLastNameText.Name = "uxLastNameText";
-            uxLastNameText.Size = new Size(494, 47);
+            uxLastNameText.Size = new Size(292, 31);
             uxLastNameText.TabIndex = 10;
             // 
             // uxFirstNameText
             // 
-            uxFirstNameText.Location = new Point(272, 161);
+            uxFirstNameText.Location = new Point(160, 98);
+            uxFirstNameText.Margin = new Padding(2, 2, 2, 2);
             uxFirstNameText.Name = "uxFirstNameText";
-            uxFirstNameText.Size = new Size(494, 47);
+            uxFirstNameText.Size = new Size(292, 31);
             uxFirstNameText.TabIndex = 11;
             // 
             // uxPhoneText
             // 
-            uxPhoneText.Location = new Point(272, 220);
-            uxPhoneText.MaxLength = 7;
+            uxPhoneText.Location = new Point(160, 134);
+            uxPhoneText.Margin = new Padding(2, 2, 2, 2);
+            uxPhoneText.MaxLength = 10;
             uxPhoneText.Name = "uxPhoneText";
-            uxPhoneText.Size = new Size(494, 47);
+            uxPhoneText.Size = new Size(292, 31);
             uxPhoneText.TabIndex = 12;
             // 
             // uxAddressText
             // 
-            uxAddressText.Location = new Point(272, 284);
+            uxAddressText.Location = new Point(160, 173);
+            uxAddressText.Margin = new Padding(2, 2, 2, 2);
             uxAddressText.Name = "uxAddressText";
-            uxAddressText.Size = new Size(494, 47);
+            uxAddressText.Size = new Size(292, 31);
             uxAddressText.TabIndex = 13;
             // 
             // uxCityText
             // 
-            uxCityText.Location = new Point(272, 349);
+            uxCityText.Location = new Point(160, 213);
+            uxCityText.Margin = new Padding(2, 2, 2, 2);
             uxCityText.Name = "uxCityText";
-            uxCityText.Size = new Size(494, 47);
+            uxCityText.Size = new Size(292, 31);
             uxCityText.TabIndex = 14;
             // 
             // uxStateText
             // 
-            uxStateText.Location = new Point(272, 418);
+            uxStateText.Location = new Point(160, 255);
+            uxStateText.Margin = new Padding(2, 2, 2, 2);
             uxStateText.MaxLength = 2;
             uxStateText.Name = "uxStateText";
-            uxStateText.Size = new Size(494, 47);
+            uxStateText.Size = new Size(292, 31);
             uxStateText.TabIndex = 15;
             // 
             // uxZipCodeText
             // 
-            uxZipCodeText.Location = new Point(272, 492);
+            uxZipCodeText.Location = new Point(160, 300);
+            uxZipCodeText.Margin = new Padding(2, 2, 2, 2);
             uxZipCodeText.MaxLength = 5;
             uxZipCodeText.Name = "uxZipCodeText";
-            uxZipCodeText.Size = new Size(494, 47);
+            uxZipCodeText.Size = new Size(292, 31);
             uxZipCodeText.TabIndex = 16;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(272, 567);
+            checkBox1.Location = new Point(160, 346);
+            checkBox1.Margin = new Padding(2, 2, 2, 2);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(136, 45);
+            checkBox1.Size = new Size(86, 29);
             checkBox1.TabIndex = 17;
             checkBox1.Text = "Active";
             checkBox1.UseVisualStyleBackColor = true;
@@ -204,18 +222,20 @@
             // checkBox2
             // 
             checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(452, 567);
+            checkBox2.Location = new Point(266, 346);
+            checkBox2.Margin = new Padding(2, 2, 2, 2);
             checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(157, 45);
+            checkBox2.Size = new Size(98, 29);
             checkBox2.TabIndex = 18;
             checkBox2.Text = "Inactive";
             checkBox2.UseVisualStyleBackColor = true;
             // 
             // uxOK
             // 
-            uxOK.Location = new Point(197, 699);
+            uxOK.Location = new Point(116, 426);
+            uxOK.Margin = new Padding(2, 2, 2, 2);
             uxOK.Name = "uxOK";
-            uxOK.Size = new Size(189, 57);
+            uxOK.Size = new Size(111, 35);
             uxOK.TabIndex = 19;
             uxOK.Text = "OK";
             uxOK.UseVisualStyleBackColor = true;
@@ -223,9 +243,10 @@
             // 
             // uxCancel
             // 
-            uxCancel.Location = new Point(476, 699);
+            uxCancel.Location = new Point(280, 426);
+            uxCancel.Margin = new Padding(2, 2, 2, 2);
             uxCancel.Name = "uxCancel";
-            uxCancel.Size = new Size(189, 57);
+            uxCancel.Size = new Size(111, 35);
             uxCancel.TabIndex = 20;
             uxCancel.Text = "Cancel";
             uxCancel.UseVisualStyleBackColor = true;
@@ -233,9 +254,9 @@
             // 
             // AddCustomer
             // 
-            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(910, 823);
+            ClientSize = new Size(535, 502);
             Controls.Add(uxCancel);
             Controls.Add(uxOK);
             Controls.Add(checkBox2);
@@ -257,6 +278,7 @@
             Controls.Add(uxFirstName);
             Controls.Add(uxLastName);
             Controls.Add(uxEmail);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "AddCustomer";
             Text = "Add Customer";
             ResumeLayout(false);

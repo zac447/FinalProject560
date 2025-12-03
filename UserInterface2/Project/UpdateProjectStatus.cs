@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,12 @@ namespace UserInterface2
 {
     public partial class UpdateProjectStatus : Form
     {
-        UserInterface Form = new UserInterface();
+        private readonly SqlProjectRepository _repo;
 
-        public UpdateProjectStatus()
+        public UpdateProjectStatus(SqlProjectRepository repo)
         {
             InitializeComponent();
+            _repo = repo;
         }
 
         private void uxCancel_Click(object sender, EventArgs e)
@@ -26,8 +28,9 @@ namespace UserInterface2
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(Form.ValidateNulls(uxProjectSearch.Text, "Select Project") && Form.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
+            if(Validation.ValidateNulls(uxProjectSearch.Text, "Select Project") && Validation.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
             {
+                _repo.UpdateProjectStatus(int.Parse(uxProjectSearch.Text), checkBox1.Checked || checkBox2.Checked ? ProjectData.Models.ProjectStatus.NotStarted : ProjectData.Models.ProjectStatus.Completed);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
