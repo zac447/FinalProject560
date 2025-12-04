@@ -2,7 +2,7 @@
 
 --Add new customer. 
 --INSERT, strings + ints, identity key.
-CREATE PROCEDURE Sales.Add_Customer --added sales
+CREATE PROCEDURE Add_Customer --added sales
 	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
 AS 
@@ -14,18 +14,18 @@ VALUES (@Email, @LastName, @FirstName, @Phone, @Address, @City, @State, @ZipCode
 END;	
 GO;
 
-EXEC Sales.Add_Customer 
-    @Email = 'testproc@gmail.com',
-    @LastName = 'Smith',
-    @FirstName = 'John',
-    @Phone = '5551234567',
-    @Address = '123 Main St',
-    @City = 'Kansas City',
-    @State = 'MO',
-    @ZipCode = '64101',
-    @Status = 'Active';
+--EXEC Sales.Add_Customer 
+--    @Email = 'testproc@gmail.com',
+--    @LastName = 'Smith',
+--    @FirstName = 'John',
+--    @Phone = '5551234567',
+--    @Address = '123 Main St',
+--    @City = 'Kansas City',
+--    @State = 'MO',
+--    @ZipCode = '64101',
+--    @Status = 'Active';
 
-SELECT * FROM Sales.Customer
+--SELECT * FROM Sales.Customer
 
 --Update customer contact info
 --UPDATE, use of primary key.

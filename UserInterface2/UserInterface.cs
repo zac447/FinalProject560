@@ -36,7 +36,7 @@ namespace UserInterface2
             var custResults = _custrepo.SearchCustomers(lastName: term);
             var empResults = _empRepo.SearchEmployees(lastName: term);
             uxOutput.DataSource = custResults.ToList();
-            uxOutput.DataSource = empResults.ToList();
+            //uxOutput.DataSource = empResults.ToList();
         }
 
         private void uxAddCustomer_Click(object sender, EventArgs e)
