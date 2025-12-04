@@ -1,6 +1,6 @@
 ﻿namespace UserInterface2
 {
-    partial class MonthlySalesByEmployee
+    partial class MonthlySalesByEmployeeForm
     {
         /// <summary>
         /// Required designer variable.

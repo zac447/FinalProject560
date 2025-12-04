@@ -34,7 +34,7 @@ namespace UserInterface2
         {
             string term = uxSearchBar.Text.Trim();
             var custResults = _custrepo.SearchCustomers(lastName: term);
-            var empResults = _empRepo.SearchEmployees(lastName: term);
+            //var empResults = _empRepo.SearchEmployees(lastName: term);
             uxOutput.DataSource = custResults.ToList();
             //uxOutput.DataSource = empResults.ToList();
         }
@@ -132,7 +132,7 @@ namespace UserInterface2
 
         private void uxMonthlySales_Click(object sender, EventArgs e)
         {
-            using MonthlySalesByEmployee salesByEmp = new MonthlySalesByEmployee();
+            using MonthlySalesByEmployeeForm salesByEmp = new MonthlySalesByEmployeeForm();
             if(salesByEmp.ShowDialog() == DialogResult.OK)
             {
                 var results = _reportRepo.GetMonthlySalesByEmployee(salesByEmp.Start, salesByEmp.End);

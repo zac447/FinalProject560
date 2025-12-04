@@ -10,25 +10,25 @@ using System.Windows.Forms;
 
 namespace UserInterface2
 {
-    public partial class MonthlySalesByEmployee : Form
+    public partial class MonthlySalesByEmployeeForm : Form
     {
         public DateTime Start { get; private set; }
 
         public DateTime End { get; private set; }
 
-        public MonthlySalesByEmployee()
+        public MonthlySalesByEmployeeForm()
         {
             InitializeComponent();
         }
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(!DateTime.TryParse(uxStartDate.Text, out DateTime start))
+            if(!DateTime.TryParse(uxStartText.Text, out DateTime start))
             {
                 MessageBox.Show("Invalid start date.");
                 return;
             }
-            if(!DateTime.TryParse(uxEndDate.Text, out DateTime end))
+            if(!DateTime.TryParse(uxEndText.Text, out DateTime end))
             {
                 MessageBox.Show("Invalid end date.");
                 return;
