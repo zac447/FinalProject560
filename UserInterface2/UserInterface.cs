@@ -27,6 +27,7 @@ namespace UserInterface2
             _empRepo = new SqlEmployeeRepository(ConnectionString);
             _projHoursRepo = new SqlProjectHoursRepository(ConnectionString);
             _proposalRepo = new SqlProjectProposalRepository(ConnectionString);
+            _projectRepo = new SqlProjectRepository(ConnectionString);
             _reportRepo = new SqlReportingRepository(ConnectionString);
         }
 
