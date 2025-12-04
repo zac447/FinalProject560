@@ -51,16 +51,18 @@
             uxProjectStatus = new ToolStripMenuItem();
             uxTotalHoursPerProject = new ToolStripButton();
             uxMonthlySales = new ToolStripButton();
-            uxOutputBox = new TextBox();
             uxCostSummary = new ToolStripButton();
+            uxOutput = new DataGridView();
             uxInfoStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)uxOutput).BeginInit();
             SuspendLayout();
             // 
             // uxSearchButton
             // 
-            uxSearchButton.Location = new Point(12, 57);
+            uxSearchButton.Location = new Point(7, 35);
+            uxSearchButton.Margin = new Padding(2, 2, 2, 2);
             uxSearchButton.Name = "uxSearchButton";
-            uxSearchButton.Size = new Size(189, 57);
+            uxSearchButton.Size = new Size(111, 35);
             uxSearchButton.TabIndex = 0;
             uxSearchButton.Text = "Search";
             uxSearchButton.UseVisualStyleBackColor = true;
@@ -68,9 +70,10 @@
             // 
             // uxSearchBar
             // 
-            uxSearchBar.Location = new Point(224, 67);
+            uxSearchBar.Location = new Point(132, 41);
+            uxSearchBar.Margin = new Padding(2, 2, 2, 2);
             uxSearchBar.Name = "uxSearchBar";
-            uxSearchBar.Size = new Size(1648, 47);
+            uxSearchBar.Size = new Size(971, 31);
             uxSearchBar.TabIndex = 1;
             uxSearchBar.Text = "Search Bar";
             // 
@@ -80,14 +83,15 @@
             uxInfoStrip.Items.AddRange(new ToolStripItem[] { uxTabBar, uxCustomerButton, uxEmployee, uxProjectsInfo, uxTotalHoursPerProject, uxMonthlySales, uxCostSummary });
             uxInfoStrip.Location = new Point(0, 0);
             uxInfoStrip.Name = "uxInfoStrip";
-            uxInfoStrip.Size = new Size(1900, 52);
+            uxInfoStrip.Padding = new Padding(0, 0, 1, 0);
+            uxInfoStrip.Size = new Size(1118, 34);
             uxInfoStrip.TabIndex = 2;
             uxInfoStrip.Text = "toolStrip1";
             // 
             // uxTabBar
             // 
             uxTabBar.Name = "uxTabBar";
-            uxTabBar.Size = new Size(233, 45);
+            uxTabBar.Size = new Size(138, 29);
             uxTabBar.Text = "Quick Reference";
             // 
             // uxCustomerButton
@@ -97,27 +101,27 @@
             uxCustomerButton.Image = (Image)resources.GetObject("uxCustomerButton.Image");
             uxCustomerButton.ImageTransparentColor = Color.Magenta;
             uxCustomerButton.Name = "uxCustomerButton";
-            uxCustomerButton.Size = new Size(186, 45);
+            uxCustomerButton.Size = new Size(115, 29);
             uxCustomerButton.Text = "Customers";
             // 
             // uxAddCustomer
             // 
             uxAddCustomer.Name = "uxAddCustomer";
-            uxAddCustomer.Size = new Size(459, 54);
+            uxAddCustomer.Size = new Size(278, 34);
             uxAddCustomer.Text = "Add Customer";
             uxAddCustomer.Click += uxAddCustomer_Click;
             // 
             // uxUpdateCustomer
             // 
             uxUpdateCustomer.Name = "uxUpdateCustomer";
-            uxUpdateCustomer.Size = new Size(459, 54);
+            uxUpdateCustomer.Size = new Size(278, 34);
             uxUpdateCustomer.Text = "Update Customer";
             uxUpdateCustomer.Click += uxUpdateCustomer_Click;
             // 
             // uxDeactivateCustomer
             // 
             uxDeactivateCustomer.Name = "uxDeactivateCustomer";
-            uxDeactivateCustomer.Size = new Size(459, 54);
+            uxDeactivateCustomer.Size = new Size(278, 34);
             uxDeactivateCustomer.Text = "Deactivate Customer";
             // 
             // uxEmployee
@@ -127,34 +131,34 @@
             uxEmployee.Image = (Image)resources.GetObject("uxEmployee.Image");
             uxEmployee.ImageTransparentColor = Color.Magenta;
             uxEmployee.Name = "uxEmployee";
-            uxEmployee.Size = new Size(188, 45);
+            uxEmployee.Size = new Size(116, 29);
             uxEmployee.Text = "Employees";
             // 
             // uxAddEmployee
             // 
             uxAddEmployee.Name = "uxAddEmployee";
-            uxAddEmployee.Size = new Size(461, 54);
+            uxAddEmployee.Size = new Size(279, 34);
             uxAddEmployee.Text = "Add Employee";
             uxAddEmployee.Click += uxAddEmployee_Click;
             // 
             // uxUpdateEmployee
             // 
             uxUpdateEmployee.Name = "uxUpdateEmployee";
-            uxUpdateEmployee.Size = new Size(461, 54);
+            uxUpdateEmployee.Size = new Size(279, 34);
             uxUpdateEmployee.Text = "Update Employee";
             uxUpdateEmployee.Click += uxUpdateEmployee_Click;
             // 
             // uxEmployeeHours
             // 
             uxEmployeeHours.Name = "uxEmployeeHours";
-            uxEmployeeHours.Size = new Size(461, 54);
+            uxEmployeeHours.Size = new Size(279, 34);
             uxEmployeeHours.Text = "Employee Hours";
             uxEmployeeHours.Click += uxEmployeeHours_Click;
             // 
             // uxDeactivateEmployee
             // 
             uxDeactivateEmployee.Name = "uxDeactivateEmployee";
-            uxDeactivateEmployee.Size = new Size(461, 54);
+            uxDeactivateEmployee.Size = new Size(279, 34);
             uxDeactivateEmployee.Text = "Deactivate Employee";
             // 
             // uxProjectsInfo
@@ -164,27 +168,27 @@
             uxProjectsInfo.Image = (Image)resources.GetObject("uxProjectsInfo.Image");
             uxProjectsInfo.ImageTransparentColor = Color.Magenta;
             uxProjectsInfo.Name = "uxProjectsInfo";
-            uxProjectsInfo.Size = new Size(149, 45);
+            uxProjectsInfo.Size = new Size(92, 29);
             uxProjectsInfo.Text = "Projects";
             // 
             // uxprojectProposals
             // 
             uxprojectProposals.DropDownItems.AddRange(new ToolStripItem[] { uxAddProposal, uxProposalStatus });
             uxprojectProposals.Name = "uxprojectProposals";
-            uxprojectProposals.Size = new Size(413, 54);
+            uxprojectProposals.Size = new Size(251, 34);
             uxprojectProposals.Text = "Project Proposals";
             // 
             // uxAddProposal
             // 
             uxAddProposal.Name = "uxAddProposal";
-            uxAddProposal.Size = new Size(388, 54);
+            uxAddProposal.Size = new Size(237, 34);
             uxAddProposal.Text = "Add Proposal";
             uxAddProposal.Click += uxAddProposal_Click;
             // 
             // uxProposalStatus
             // 
             uxProposalStatus.Name = "uxProposalStatus";
-            uxProposalStatus.Size = new Size(388, 54);
+            uxProposalStatus.Size = new Size(237, 34);
             uxProposalStatus.Text = "Proposal Status";
             uxProposalStatus.Click += uxProposalStatus_Click;
             // 
@@ -192,20 +196,20 @@
             // 
             uxProjects.DropDownItems.AddRange(new ToolStripItem[] { uxAddProject, uxProjectStatus });
             uxProjects.Name = "uxProjects";
-            uxProjects.Size = new Size(413, 54);
+            uxProjects.Size = new Size(251, 34);
             uxProjects.Text = "Projects";
             // 
             // uxAddProject
             // 
             uxAddProject.Name = "uxAddProject";
-            uxAddProject.Size = new Size(364, 54);
+            uxAddProject.Size = new Size(221, 34);
             uxAddProject.Text = "Add Project";
             uxAddProject.Click += uxAddProject_Click;
             // 
             // uxProjectStatus
             // 
             uxProjectStatus.Name = "uxProjectStatus";
-            uxProjectStatus.Size = new Size(364, 54);
+            uxProjectStatus.Size = new Size(221, 34);
             uxProjectStatus.Text = "Project Status";
             uxProjectStatus.Click += uxProjectStatus_Click;
             // 
@@ -215,7 +219,7 @@
             uxTotalHoursPerProject.Image = (Image)resources.GetObject("uxTotalHoursPerProject.Image");
             uxTotalHoursPerProject.ImageTransparentColor = Color.Magenta;
             uxTotalHoursPerProject.Name = "uxTotalHoursPerProject";
-            uxTotalHoursPerProject.Size = new Size(322, 45);
+            uxTotalHoursPerProject.Size = new Size(194, 29);
             uxTotalHoursPerProject.Text = "Total Hours Per Project";
             uxTotalHoursPerProject.Click += uxTotalHoursPerProject_Click;
             // 
@@ -225,19 +229,9 @@
             uxMonthlySales.Image = (Image)resources.GetObject("uxMonthlySales.Image");
             uxMonthlySales.ImageTransparentColor = Color.Magenta;
             uxMonthlySales.Name = "uxMonthlySales";
-            uxMonthlySales.Size = new Size(387, 45);
+            uxMonthlySales.Size = new Size(234, 29);
             uxMonthlySales.Text = "Monthly Sales By Employee";
             uxMonthlySales.Click += uxMonthlySales_Click;
-            // 
-            // uxOutputBox
-            // 
-            uxOutputBox.Location = new Point(12, 139);
-            uxOutputBox.Multiline = true;
-            uxOutputBox.Name = "uxOutputBox";
-            uxOutputBox.ScrollBars = ScrollBars.Both;
-            uxOutputBox.Size = new Size(1860, 601);
-            uxOutputBox.TabIndex = 3;
-            uxOutputBox.Text = "OutputBox";
             // 
             // uxCostSummary
             // 
@@ -245,25 +239,36 @@
             uxCostSummary.Image = (Image)resources.GetObject("uxCostSummary.Image");
             uxCostSummary.ImageTransparentColor = Color.Magenta;
             uxCostSummary.Name = "uxCostSummary";
-            uxCostSummary.Size = new Size(315, 45);
+            uxCostSummary.Size = new Size(192, 29);
             uxCostSummary.Text = "Project Cost Summary";
             uxCostSummary.Click += uxCostSummary_Click;
             // 
+            // uxOutput
+            // 
+            uxOutput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            uxOutput.Location = new Point(7, 92);
+            uxOutput.Name = "uxOutput";
+            uxOutput.RowHeadersWidth = 62;
+            uxOutput.Size = new Size(1096, 372);
+            uxOutput.TabIndex = 3;
+            // 
             // UserInterface
             // 
-            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(1900, 781);
-            Controls.Add(uxOutputBox);
+            ClientSize = new Size(1118, 476);
+            Controls.Add(uxOutput);
             Controls.Add(uxInfoStrip);
             Controls.Add(uxSearchBar);
             Controls.Add(uxSearchButton);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "UserInterface";
             Text = "Company Information";
             uxInfoStrip.ResumeLayout(false);
             uxInfoStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)uxOutput).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -280,7 +285,6 @@
         private ToolStripDropDownButton uxProjectsInfo;
         private ToolStripMenuItem uxprojectProposals;
         private ToolStripMenuItem uxAddProposal;
-        private TextBox uxOutputBox;
         private ToolStripDropDownButton uxCustomerButton;
         private ToolStripMenuItem uxAddCustomer;
         private ToolStripMenuItem uxUpdateCustomer;
@@ -294,5 +298,6 @@
         private ToolStripButton uxTotalHoursPerProject;
         private ToolStripButton uxMonthlySales;
         private ToolStripButton uxCostSummary;
+        private DataGridView uxOutput;
     }
 }

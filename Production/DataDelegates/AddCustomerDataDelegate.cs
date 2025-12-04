@@ -6,7 +6,7 @@ namespace ProjectData.DataDelegates
 {
     internal class AddCustomerDataDelegate(string email, string lastName, string firstName,
        string phone, string address, string city, string state, string zipCode, CustomerStatus status)
-       : NonQueryDataDelegate<int>("Add_Customer")
+       : NonQueryDataDelegate<int>("Add_Customer") //added sales.
     {
         public override void PrepareCommand(Command command)
         {

@@ -7,16 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectData;
 
 namespace UserInterface2
 {
     public partial class AddProject : Form
     {
-        private UserInterface Form = new UserInterface();
+        private readonly SqlProjectRepository _repo;
 
-        public AddProject()
+        public AddProject(SqlProjectRepository repo)
         {
             InitializeComponent();
+            _repo = repo;
         }
 
         private void uxCancel_Click(object sender, EventArgs e)
@@ -26,9 +28,11 @@ namespace UserInterface2
 
         private void uxOK_Click(object sender, EventArgs e)
         {
-            if(Form.ValidateNulls(uxCustomerIDText.Text, "CustomerID") && Form.ValidateNulls(uxManagerIDText.Text, "ManagerID") && Form.ValidateNulls(uxProjectProposalIDText.Text, "ProjectProposalID") && 
-                Form.ValidateNulls(uxStartDateText.Text, "StartDate") && Form.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
+            if(Validation.ValidateNulls(uxManagerIDText.Text, "ManagerID") && Validation.ValidateNulls(uxStartDateText.Text, "Start Date") && Validation.ValidateNulls(uxPropsalIDText.Text, "ProposalID") &&
+                Validation.CheckCheckBoxes(checkBox1.Checked, checkBox2.Checked, "Status"))
             {
+                _repo.CreateProject(int.Parse(uxPropsalIDText.Text), int.Parse(uxManagerIDText.Text), DateTime.Parse(uxStartDateText.Text),
+                    checkBox1.Checked || checkBox2.Checked ? ProjectData.Models.ProjectStatus.NotStarted : ProjectData.Models.ProjectStatus.Completed);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

@@ -29,7 +29,7 @@ namespace ProjectData.DataDelegates
                    reader.GetString("EmployeeName"),
                    reader.GetInt32("TotalHours"),
                    reader.GetValue<decimal>("TotalSales"),
-                   reader.GetInt32("SalesRankInMonth")));
+                   (int)reader.GetValue<long>("SalesRankInMonth")));
             }
             return results;
         }
