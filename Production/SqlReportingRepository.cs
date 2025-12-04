@@ -30,5 +30,11 @@ namespace ProjectData
             var d = new GetProjectCostSummaryDataDelegate(projectId, status);
             return executor.ExecuteReader(d);
         }
+
+        public IReadOnlyList<ProjectMaterialCostSummary> GetProjectMaterialCostSummary(int? projectId = null, string? status = null)
+        {
+            var d = new GetProjectMaterialCostSummaryDataDelegate(projectId, status);
+            return executor.ExecuteReader(d);
+        }
     }
 }

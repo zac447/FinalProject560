@@ -42,7 +42,7 @@ namespace UserInterface2
         private void uxAddCustomer_Click(object sender, EventArgs e)
         {
             AddCustomer addNewCustomer = new AddCustomer(_custrepo);
-            if(addNewCustomer.ShowDialog() == DialogResult.OK)
+            if (addNewCustomer.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _custrepo.SearchCustomers();
             }
@@ -51,7 +51,7 @@ namespace UserInterface2
         private void uxUpdateCustomer_Click(object sender, EventArgs e)
         {
             UpdateCustomer updateCustomer = new UpdateCustomer(_custrepo);
-            if(updateCustomer.ShowDialog() == DialogResult.OK)
+            if (updateCustomer.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _custrepo.SearchCustomers();
             }
@@ -60,7 +60,7 @@ namespace UserInterface2
         private void uxAddEmployee_Click(object sender, EventArgs e)
         {
             AddEmployee addNewEmployee = new AddEmployee(_empRepo);
-            if(addNewEmployee.ShowDialog() == DialogResult.OK)
+            if (addNewEmployee.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _empRepo.SearchEmployees();
             }
@@ -69,7 +69,7 @@ namespace UserInterface2
         private void uxUpdateEmployee_Click(object sender, EventArgs e)
         {
             UpdateEmployee updateEmployee = new UpdateEmployee(_empRepo);
-            if(updateEmployee.ShowDialog() == DialogResult.OK)
+            if (updateEmployee.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _empRepo.SearchEmployees();
             }
@@ -87,7 +87,7 @@ namespace UserInterface2
         private void uxAddProposal_Click(object sender, EventArgs e)
         {
             AddProposal addProposal = new AddProposal(_proposalRepo);
-            if(addProposal.ShowDialog() == DialogResult.OK)
+            if (addProposal.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _proposalRepo.ListProposals();
             }
@@ -96,7 +96,7 @@ namespace UserInterface2
         private void uxProposalStatus_Click(object sender, EventArgs e)
         {
             UpdateProposalStatus updateStatus = new UpdateProposalStatus(_proposalRepo);
-            if(updateStatus.ShowDialog() == DialogResult.OK)
+            if (updateStatus.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _proposalRepo.ListProposals();
             }
@@ -105,7 +105,7 @@ namespace UserInterface2
         private void uxAddProject_Click(object sender, EventArgs e)
         {
             AddProject addProject = new AddProject(_projectRepo);
-            if(addProject.ShowDialog() == DialogResult.OK)
+            if (addProject.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _projectRepo.SearchProjects();
             }
@@ -114,7 +114,7 @@ namespace UserInterface2
         private void uxProjectStatus_Click(object sender, EventArgs e)
         {
             UpdateProjectStatus updateStatus = new UpdateProjectStatus(_projectRepo);
-            if(updateStatus.ShowDialog() == DialogResult.OK)
+            if (updateStatus.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _projectRepo.SearchProjects();
             }
@@ -133,7 +133,7 @@ namespace UserInterface2
         private void uxMonthlySales_Click(object sender, EventArgs e)
         {
             using MonthlySalesByEmployeeForm salesByEmp = new MonthlySalesByEmployeeForm();
-            if(salesByEmp.ShowDialog() == DialogResult.OK)
+            if (salesByEmp.ShowDialog() == DialogResult.OK)
             {
                 var results = _reportRepo.GetMonthlySalesByEmployee(salesByEmp.Start, salesByEmp.End);
                 uxOutput.DataSource = results.ToList();
@@ -142,11 +142,21 @@ namespace UserInterface2
 
         private void uxCostSummary_Click(object sender, EventArgs e)
         {
-            var costSummary = _reportRepo.GetProjectCostSummary();
-            StringBuilder sb = new();
-            foreach(var cost in costSummary)
+            using ProjectCostSummaryForm costSummary = new ProjectCostSummaryForm();
+            if (costSummary.ShowDialog() == DialogResult.OK)
             {
-                sb.AppendLine($"ProjectID: {cost.ProjectId}, ProjectName: {cost.ProjectName}, TotalHours: {cost.TotalLaborHours}, TotalLaborCost: {cost.TotalLaborCost}, TotalMaterialCost: {cost.TotalMaterialCost}, TotalCost: {cost.TotalProjectCost}");
+                var results = _reportRepo.GetProjectCostSummary(costSummary.ProjectID);
+                uxOutput.DataSource = results.ToList();
+            }
+        }
+
+        private void uxProjectMaterialCost_Click(object sender, EventArgs e)
+        {
+            using ProjectMaterialCost materialCost = new ProjectMaterialCost();
+            if (materialCost.ShowDialog() == DialogResult.OK)
+            {
+                var results = _reportRepo.GetProjectMaterialCostSummary(materialCost.ProjectID);
+                uxOutput.DataSource = results.ToList();
             }
         }
     }

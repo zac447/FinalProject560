@@ -33,7 +33,7 @@ namespace UserInterface2
                Validation.ValidateNulls(uxEmployeeSearch.Text, "Select Employee"))
             {
                 _repo.UpdateEmployee(int.Parse(uxEmployeeSearch.Text), 
-                    string.IsNullOrWhiteSpace(uxManagerIDText.Text) ? (int?)null : int.Parse(uxManagerIDText.Text),
+                    /*string.IsNullOrWhiteSpace(uxManagerIDText.Text) ? (int?)null : */int.Parse(uxManagerIDText.Text),
                     uxLastNameText.Text,
                     uxFirstNameText.Text,  
                     DateTime.Parse(uxDateofBirthText.Text), 

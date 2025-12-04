@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace UserInterface2
 {
-    public partial class ProjectCostSummaryForm : Form
+    public partial class ProjectMaterialCost : Form
     {
         public int ProjectID { get; private set; }
 
         public string Status { get; private set; }
 
-        public ProjectCostSummaryForm()
+        public ProjectMaterialCost()
         {
             InitializeComponent();
         }
