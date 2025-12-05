@@ -35,9 +35,7 @@ namespace UserInterface2
         {
             string term = uxSearchBar.Text.Trim();
             var custResults = _custrepo.SearchCustomers(lastName: term);
-            //var empResults = _empRepo.SearchEmployees(lastName: term);
             uxOutput.DataSource = custResults.ToList();
-            //uxOutput.DataSource = empResults.ToList();
         }
 
         private void uxAddCustomer_Click(object sender, EventArgs e)
@@ -73,15 +71,6 @@ namespace UserInterface2
             if (updateEmployee.ShowDialog() == DialogResult.OK)
             {
                 uxOutput.DataSource = _empRepo.SearchEmployees();
-            }
-        }
-
-        private void uxEmployeeHours_Click(object sender, EventArgs e)
-        {
-            LogHours logHours = new LogHours();
-            if (logHours.ShowDialog() == DialogResult.OK)
-            {
-                //uxOutput.DataSource = _projHoursRepo.LogHours();
             }
         }
 
