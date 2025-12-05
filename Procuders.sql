@@ -2,7 +2,7 @@
 
 --Add new customer. 
 --INSERT, strings + ints, identity key.
-CREATE PROCEDURE Add_Customer --added sales
+CREATE PROCEDURE Add_Customer
 	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
 AS 
@@ -12,24 +12,24 @@ BEGIN
 
 VALUES (@Email, @LastName, @FirstName, @Phone, @Address, @City, @State, @ZipCode, @Status)
 END;	
-GO;
+GO
 
---EXEC Sales.Add_Customer 
---    @Email = 'testproc@gmail.com',
---    @LastName = 'Smith',
---    @FirstName = 'John',
---    @Phone = '5551234567',
---    @Address = '123 Main St',
---    @City = 'Kansas City',
---    @State = 'MO',
---    @ZipCode = '64101',
---    @Status = 'Active';
+EXEC Add_Customer 
+    @Email = 'testproc@gmail.com',
+    @LastName = 'Smith',
+    @FirstName = 'John',
+    @Phone = '5551234567',
+    @Address = '123 Main St',
+    @City = 'Kansas City',
+    @State = 'MO',
+    @ZipCode = '64101',
+    @Status = 'Active';
 
---SELECT * FROM Sales.Customer
+SELECT * FROM Sales.Customer
 
 --Update customer contact info
 --UPDATE, use of primary key.
-CREATE PROCEDURE Update_Customer 
+CREATE PROCEDURE Update_Customer
 	@CustomerID INT, @Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
 	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
 AS 
@@ -64,9 +64,11 @@ EXEC Update_Customer
     @ZipCode = '66614',
     @Status = 'Active';
 
+
+
 --Soft-delete customer
 --soft delete requirement.
-CREATE PROCEDURE Deactivate_Customer 
+CREATE PROCEDURE Deactivate_Customer --didnt use implemented with update customer
 	@CustomerID INT
 AS 
 BEGIN
@@ -103,7 +105,7 @@ EXEC Search_Customer
 
 --Add new employee
 --INSERT, strings + ints, identity key.
-CREATE PROCEDURE Add_Employee 
+CREATE PROCEDURE Add_Employee
 	@ManagerID INT, @LastName NVARCHAR(30), @FirstName NVARCHAR(15), @DateOfBirth DATE, 
 	@Title NVARCHAR(30), @DateOfHire DATE, @Status NVARCHAR(10), @HourlyRate DECIMAL(10,2)
 AS 
@@ -127,9 +129,10 @@ EXEC Add_Employee
 
 SELECT * FROM HR.Employee
 
+
 --Update employee info
 --UPDATE, use of primary key.
-CREATE PROCEDURE Update_Employee 
+CREATE PROCEDURE Update_Employee
 	@EmployeeID INT, @ManagerID INT, @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @DateOfBirth DATE, @Title NVARCHAR(30) , @Status NVARCHAR(10), @HourlyRate DECIMAL(10,2)
 AS 
 BEGIN
@@ -150,7 +153,7 @@ GO
 
 EXEC Update_Employee
 	@EmployeeID = 101,
-	@ManagerID = 102,
+	@ManagerID = 3,
     @LastName = 'Atchison',
     @FirstName = 'Zac',
     @DateOfBirth = '2004-01-01',
@@ -160,9 +163,10 @@ EXEC Update_Employee
 
 SELECT * FROM HR.Employee
 
+
 --Soft-delete employee
 --soft delete requirement.
-CREATE PROCEDURE Deactivate_Employee
+CREATE PROCEDURE Deactivate_Employee --didnt use implemented with update employee
 	@EmployeeID INT
 AS 
 BEGIN
@@ -177,6 +181,7 @@ EXEC Deactivate_Employee
 	@EmployeeID = 96;
 
 SELECT * FROM HR.Employee
+
 	
 --Search Employees
 --searching/listing records.
@@ -196,106 +201,6 @@ GO
 
 EXEC Search_Employee
 	@LastName = 'Wynn';
-
---Project Proposal Procedures
-
---Add new project proposal. 
---INSERT into a table with FK to Sales.Customer.
-CREATE PROCEDURE Add_Proposal
-	@Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
-	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
-AS 
-BEGIN
-	INSERT INTO Sales.Customer 
-	(Email, LastName, FirstName, Phone, [Address], City, [State], ZipCode, [Status])
-
-VALUES (@Email, @LastName, @FirstName, @Phone, @Address, @City, @State, @ZipCode, @Status)
-END;	
-GO;
-
-EXEC Add_Proposal
-    @Email = 'testproc@gmail.com',
-    @LastName = 'Smith',
-    @FirstName = 'John',
-    @Phone = '5551234567',
-    @Address = '123 Main St',
-    @City = 'Kansas City',
-    @State = 'MO',
-    @ZipCode = '64101',
-    @Status = 'Active';
-
-SELECT * FROM Sales.Customer
-
---Update customer contact info
---UPDATE, use of primary key.
-CREATE PROCEDURE Update_Customer 
-	@CustomerID INT, @Email NVARCHAR(50), @LastName NVARCHAR(30), @FirstName NVARCHAR(30), @Phone NVARCHAR(10), 
-	@Address NVARCHAR(60), @City NVARCHAR(20), @State NVARCHAR(20), @ZipCode NVARCHAR(5), @Status NVARCHAR(10)
-AS 
-BEGIN
-	UPDATE Sales.Customer 
-	SET Email = @Email, LastName = @LastName, FirstName = @FirstName, Phone = @Phone, [Address] = @Address, 
-		City = @City, [State] = @State, ZipCode = @ZipCode, [Status] = @Status
-	WHERE CustomerID = @CustomerID AND 
-	( Email    <> @Email
-     OR LastName <> @LastName
-     OR FirstName <> @FirstName
-     OR Phone    <> @Phone
-     OR [Address]<> @Address
-     OR City     <> @City
-     OR [State]  <> @State
-     OR ZipCode  <> @ZipCode
-     OR [Status] <> @Status
-     );
-
-END;	
-GO
-
-EXEC Update_Customer
-	@CustomerID = 101,
-	@Email = 'Brian.Ortega@gmail.com',
-    @LastName = 'Ortega',
-    @FirstName = 'Brian',
-    @Phone = '5551234567',
-    @Address = '123 Main St',
-    @City = 'Top City City',
-    @State = 'MO',
-    @ZipCode = '66614',
-    @Status = 'Active';
-
---Soft-delete customer
---soft delete requirement.
-CREATE PROCEDURE Deactivate_Customer 
-	@CustomerID INT
-AS 
-BEGIN
-	UPDATE Sales.Customer 
-	SET [Status] = 'Inactive'
-	WHERE CustomerID = @CustomerID AND [Status] = 'Active'
-
-END;	
-GO
-
-EXEC Deactivate_Customer
-	@CustomerID = 101;
-
-	
---Search customers
---searching/listing records.
-CREATE PROCEDURE Search_Customer
-	@CustomerID INT = NULL, @LastName NVARCHAR(30) = NULL, @FirstName NVARCHAR(30) = NULL, @City NVARCHAR(20) = NULL, @Status NVARCHAR(20) = NULL
-AS 
-BEGIN
-	SELECT * 
-	FROM Sales.Customer
-	WHERE (@CustomerID IS NULL OR CustomerID = @CustomerID) AND (@LastName IS NULL OR LastName = @LastName) AND (@FirstName IS NULL OR FirstName = @FirstName) 
-	AND (@City IS NULL OR City =  @City) AND (@Status IS NULL OR Status = @Status)
-
-END;	
-GO
-
-EXEC Search_Customer
-	@Status = 'Inactive';
 
 	
 --Project Proposal Procedures
@@ -323,9 +228,10 @@ EXEC Add_Proposal
 SELECT * FROM Sales.Customer
 SELECT * FROM Sales.ProjectProposal
 
+
 --Update proposal status
 --business state changes with UPDATE.
-CREATE PROCEDURE Update_Proposal_Status
+CREATE PROCEDURE Update_Proposal_Status 
 	@ProposalID INT, @Status NVARCHAR(10)
 AS 
 BEGIN
@@ -339,21 +245,28 @@ EXEC Update_Proposal_Status
 	@ProposalID = 104,
     @Status = 'Declined';
 
-SELECT * FROM Sales.ProjectProposal
+SELECT * FROM Sales.ProjectProposal 
 
---List proposals by status / customer
---SELECT with JOIN, search/filter.
+--Search Proposals
 CREATE PROCEDURE List_Proposal_By_Status_OR_Customer
-	@CustomerID INT = NULL, @Status NVARCHAR(10) = NULL
+    @CustomerID INT = NULL, 
+    @Status NVARCHAR(10) = NULL
 AS 
 BEGIN
-	SELECT C.CustomerID, PP.Status ,C.FirstName + ' ' + C.LastName AS FullName, PP.ProjectProposalID, PP.ProjectName, PP.ProjectDetails
-	FROM Sales.ProjectProposal PP 
-		JOIN Sales.Customer C ON PP.CustomerID = C.CustomerID
-	WHERE C.CustomerID = @CustomerID OR PP.Status = @Status 
-	ORDER BY PP.Status, C.LastName ASC, C.FirstName ASC
-
-END;	
+    SELECT 
+        C.CustomerID, 
+        PP.ProjectProposalID,
+        PP.ProjectName, 
+        PP.ProjectDetails,
+        PP.EstimatedDurationHours,  
+        PP.Status,
+        C.FirstName + ' ' + C.LastName AS FullName
+    FROM Sales.ProjectProposal PP 
+        JOIN Sales.Customer C ON PP.CustomerID = C.CustomerID
+    WHERE (@CustomerID IS NULL OR C.CustomerID = @CustomerID) 
+       AND (@Status IS NULL OR PP.Status = @Status)
+    ORDER BY PP.Status, C.LastName ASC, C.FirstName ASC
+END;
 GO
 
 EXEC List_Proposal_By_Status_OR_Customer
@@ -361,6 +274,7 @@ EXEC List_Proposal_By_Status_OR_Customer
 	@Status = Proposed;
 
 SELECT * FROM Sales.ProjectProposal
+
 
 --Project Procedures
 
@@ -397,9 +311,10 @@ EXEC Add_Project
 
 SELECT * FROM Production.Project
 
+
 --Update project status and end date
 --UPDATE, date handling.
-CREATE PROCEDURE Update_Project_Status
+CREATE PROCEDURE Update_Project_Status 
 	@ProjectID INT, @Status NVARCHAR(10)
 AS 
 BEGIN 
@@ -419,23 +334,33 @@ EXEC Update_Project_Status
 
 SELECT * FROM Production.Project
 
---Search Projects
---multi-table JOIN search.
+--Searchs projects
 CREATE PROCEDURE Search_Projects
-	@CustomerName NVARCHAR(80) = NULL,@ManagerID INT = NULL ,@Status NVARCHAR(10) = NULL
+    @CustomerName NVARCHAR(80) = NULL,
+    @ManagerID INT = NULL,
+    @Status NVARCHAR(10) = NULL
 AS 
 BEGIN
-	SELECT C.FirstName + ' ' + C.LastName AS FullCustomerName, P.ProjectName, 
-	C.Address + ' ' + C.City + ' ' + C.State AS FullCustomerAddress, C.ZipCode ,E.FirstName + ' ' + E.LastName AS Manager,
-		P.[Status], P.StartDate, P.EndDate 
-	FROM Production.Project P 
-		JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
-		JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
-	WHERE C.FirstName = @CustomerName OR E.EmployeeID = @ManagerID OR P.Status = @Status 
-	ORDER BY FullCustomerName ASC,ProjectName ASC ,EmployeeID ASC
-
-END;	
-GO
+    SELECT 
+        P.ProjectID,                                  
+        P.CustomerID,                                          
+        P.ProjectName,
+        P.StartDate,
+        P.EndDate,
+        P.ManagerID,                                           
+        P.[Status],
+        C.FirstName + ' ' + C.LastName AS FullCustomerName, 
+        C.Address + ' ' + C.City + ' ' + C.State AS FullCustomerAddress,
+        C.ZipCode,
+        E.FirstName + ' ' + E.LastName AS Manager          
+    FROM Production.Project P 
+        JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+        JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
+    WHERE (@CustomerName IS NULL OR C.FirstName = @CustomerName) 
+       AND (@ManagerID IS NULL OR E.EmployeeID = @ManagerID) 
+       AND (@Status IS NULL OR P.Status = @Status)
+    ORDER BY FullCustomerName ASC, P.ProjectName ASC
+END;
 
 EXEC Search_Projects
 	@Status = InProgress;
@@ -444,7 +369,7 @@ EXEC Search_Projects
 
 --Log hours worked on a project
 --INSERT with FK to Project and Employee.
-CREATE PROCEDURE Log_Hours
+CREATE PROCEDURE Log_Hours --Didnt use
 	@ProjectID INT, @EmployeeID INT, @Description NVARCHAR(500), @Date DATE, @Hours INT
 AS 
 BEGIN
@@ -466,7 +391,7 @@ SELECT * FROM Production.ProjectHours
 
 --Update a time entry
 --UPDATE with identity key.
-CREATE PROCEDURE Update_Time_Entry
+CREATE PROCEDURE Update_Time_Entry --didnt use
 	@ProjectHoursID INT, @Hours INT, @Description NVARCHAR(500)
 AS 
 BEGIN 
@@ -481,9 +406,11 @@ EXEC Update_Time_Entry
 	@Hours = 20,
 	@Description = 'Still at it G'; 
 
+--Aggregating queries
+
 --Get total hours per project
---aggregation, grouping, joins.
-CREATE PROCEDURE Get_Total_Hours_Per_Project
+--Gets the total hours completed hours on a project for company reference to see how it compares to how many hours they thought the project was going to take.
+CREATE PROCEDURE Get_Total_Hours_Per_Project 
 	@ProjectID INT
 AS 
 BEGIN
@@ -502,9 +429,9 @@ EXEC Get_Total_Hours_Per_Project
 SELECT * FROM Production.ProjectHours
 
 
---Aggregating Queries Per Projet Proposal
 --Query 3
-CREATE PROCEDURE MonthlySalesByEmployee
+--Created to see how many sales each employee has done within a certain time span.
+CREATE PROCEDURE MonthlySalesByEmployee --done
     @StartDate DATE = NULL,
     @EndDate   DATE = NULL
 AS
@@ -546,7 +473,7 @@ GO
 EXEC MonthlySalesByEmployee @StartDate = '2024-01-01', @EndDate = '2024-12-31';
 
 --Query 4
-CREATE PROCEDURE ManagerApprovedProjects
+CREATE PROCEDURE ManagerApprovedProjects --didnt use
     @ManagerID INT = NULL, @Status NVARCHAR(10) = NULL   
 AS
 BEGIN
@@ -565,7 +492,69 @@ GO
 
 EXEC ManagerApprovedProjects @Status = 'InProgress'
 
--- Query 5: Project Cost Summary, materials and hours
+--Gets total cost of the project not including along with the hours that has been worked on the project.
+CREATE PROCEDURE GetProjectCostSummary
+    @ProjectID INT = NULL,
+    @Status NVARCHAR(10) = NULL
+AS
+BEGIN
+    SELECT 
+        P.ProjectID,
+        P.ProjectName,
+        P.[Status],
+        C.FirstName + ' ' + C.LastName AS CustomerName,
+        E.FirstName + ' ' + E.LastName AS ManagerName,
+        
+        -- materials
+        SUM(ISNULL(PM.Total, 0)) AS TotalMaterialCost,
+        
+        -- hours
+        SUM(ISNULL(PH.[Hours], 0)) AS TotalLaborHours,
+        AVG(ISNULL(PRT.HourlyRate, 0)) AS AvgHourlyRate,
+        SUM(ISNULL(PH.[Hours], 0) * ISNULL(PRT.HourlyRate, 0)) AS TotalLaborCost,
+        
+        -- overall cost
+        SUM(ISNULL(PM.Total, 0)) + 
+        SUM(ISNULL(PH.[Hours], 0) * ISNULL(PRT.HourlyRate, 0)) AS TotalProjectCost,
+        
+        P.StartDate,
+        P.EndDate
+        
+    FROM Production.Project P
+    JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
+    JOIN HR.Employee E ON P.ManagerID = E.EmployeeID
+    LEFT JOIN Production.ProjectMaterials PM ON P.ProjectID = PM.ProjectID
+    LEFT JOIN Production.ProjectHours PH ON P.ProjectID = PH.ProjectID
+    LEFT JOIN Production.ProjectRateType PRT 
+        ON P.ProjectID = PRT.ProjectID
+        AND PH.WorkPerformedDate >= PRT.StartDate
+        AND (PRT.EndDate IS NULL OR PH.WorkPerformedDate <= PRT.EndDate)
+    
+    WHERE (@ProjectID IS NULL OR P.ProjectID = @ProjectID)
+      AND (@Status IS NULL OR P.[Status] = @Status)
+    
+    GROUP BY P.ProjectID, P.ProjectName, P.[Status], C.FirstName, C.LastName, E.FirstName, E.LastName, P.StartDate, P.EndDate
+    
+    ORDER BY TotalProjectCost DESC, P.ProjectName;
+END;
+GO
+
+-- example executions
+
+-- get all project costs
+EXEC GetProjectCostSummary;
+
+-- get specific project cost
+EXEC GetProjectCostSummary @ProjectID = 1;
+
+-- get costs for completed projects only
+EXEC GetProjectCostSummary @Status = 'Completed';
+
+-- get costs for in progress projects only
+EXEC GetProjectCostSummary @Status = 'InProgress';
+
+
+--Finds the total cost of materials that have been used on the project. Again helps to see what was actually spent compared to what was expected to spend.
 CREATE PROCEDURE GetProjectMaterialCostSummary
     @ProjectID INT = NULL,
     @Status NVARCHAR(10) = NULL
