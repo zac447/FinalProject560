@@ -58,7 +58,7 @@
             // uxSearchButton
             // 
             uxSearchButton.Location = new Point(7, 35);
-            uxSearchButton.Margin = new Padding(2, 2, 2, 2);
+            uxSearchButton.Margin = new Padding(2);
             uxSearchButton.Name = "uxSearchButton";
             uxSearchButton.Size = new Size(111, 35);
             uxSearchButton.TabIndex = 0;
@@ -69,7 +69,7 @@
             // uxSearchBar
             // 
             uxSearchBar.Location = new Point(132, 41);
-            uxSearchBar.Margin = new Padding(2, 2, 2, 2);
+            uxSearchBar.Margin = new Padding(2);
             uxSearchBar.Name = "uxSearchBar";
             uxSearchBar.Size = new Size(1207, 31);
             uxSearchBar.TabIndex = 1;
@@ -104,14 +104,14 @@
             // uxAddCustomer
             // 
             uxAddCustomer.Name = "uxAddCustomer";
-            uxAddCustomer.Size = new Size(270, 34);
+            uxAddCustomer.Size = new Size(254, 34);
             uxAddCustomer.Text = "Add Customer";
             uxAddCustomer.Click += uxAddCustomer_Click;
             // 
             // uxUpdateCustomer
             // 
             uxUpdateCustomer.Name = "uxUpdateCustomer";
-            uxUpdateCustomer.Size = new Size(270, 34);
+            uxUpdateCustomer.Size = new Size(254, 34);
             uxUpdateCustomer.Text = "Update Customer";
             uxUpdateCustomer.Click += uxUpdateCustomer_Click;
             // 
@@ -128,14 +128,14 @@
             // uxAddEmployee
             // 
             uxAddEmployee.Name = "uxAddEmployee";
-            uxAddEmployee.Size = new Size(270, 34);
+            uxAddEmployee.Size = new Size(255, 34);
             uxAddEmployee.Text = "Add Employee";
             uxAddEmployee.Click += uxAddEmployee_Click;
             // 
             // uxUpdateEmployee
             // 
             uxUpdateEmployee.Name = "uxUpdateEmployee";
-            uxUpdateEmployee.Size = new Size(270, 34);
+            uxUpdateEmployee.Size = new Size(255, 34);
             uxUpdateEmployee.Text = "Update Employee";
             uxUpdateEmployee.Click += uxUpdateEmployee_Click;
             // 
@@ -153,7 +153,7 @@
             // 
             uxprojectProposals.DropDownItems.AddRange(new ToolStripItem[] { uxAddProposal, uxProposalStatus });
             uxprojectProposals.Name = "uxprojectProposals";
-            uxprojectProposals.Size = new Size(270, 34);
+            uxprojectProposals.Size = new Size(251, 34);
             uxprojectProposals.Text = "Project Proposals";
             // 
             // uxAddProposal
@@ -174,7 +174,7 @@
             // 
             uxProjects.DropDownItems.AddRange(new ToolStripItem[] { uxAddProject, uxProjectStatus });
             uxProjects.Name = "uxProjects";
-            uxProjects.Size = new Size(270, 34);
+            uxProjects.Size = new Size(251, 34);
             uxProjects.Text = "Projects";
             // 
             // uxAddProject
@@ -207,8 +207,8 @@
             uxMonthlySales.Image = (Image)resources.GetObject("uxMonthlySales.Image");
             uxMonthlySales.ImageTransparentColor = Color.Magenta;
             uxMonthlySales.Name = "uxMonthlySales";
-            uxMonthlySales.Size = new Size(234, 29);
-            uxMonthlySales.Text = "Monthly Sales By Employee";
+            uxMonthlySales.Size = new Size(163, 29);
+            uxMonthlySales.Text = "Sales By Employee";
             uxMonthlySales.Click += uxMonthlySales_Click;
             // 
             // uxCostSummary
@@ -251,7 +251,7 @@
             Controls.Add(uxInfoStrip);
             Controls.Add(uxSearchBar);
             Controls.Add(uxSearchButton);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "UserInterface";
             Text = "Company Information";
             uxInfoStrip.ResumeLayout(false);
