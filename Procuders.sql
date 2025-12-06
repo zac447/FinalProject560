@@ -414,7 +414,7 @@ CREATE PROCEDURE Get_Total_Hours_Per_Project
 	@ProjectID INT
 AS 
 BEGIN
-SELECT PH.ProjectID, SUM(PH.Hours) AS ProjectHours, P.ProjectID, C.FirstName, C.LastName, P.ProjectName
+SELECT PH.ProjectID, SUM(PH.Hours) AS ProjectHours, C.FirstName, C.LastName, P.ProjectName
 FROM Production.ProjectHours PH
 	JOIN Production.Project P ON PH.ProjectID = P.ProjectID
 	LEFT JOIN Sales.Customer C ON P.CustomerID = C.CustomerID
